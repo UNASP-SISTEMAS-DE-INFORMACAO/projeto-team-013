@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express')
 
-const routes = express.Router();
+const routes = express.Router()
 
-routes.get("/", (req, res) => {
-  return res.json({ message: "Hello monorepo" });
-});
+routes.get('/', (req, res) => {
+  return res.json({ message: 'Hello monorepo' })
+})
 
-module.exports = routes;
+module.exports = routes

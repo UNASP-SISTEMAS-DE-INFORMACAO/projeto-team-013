@@ -9,5 +9,8 @@
     ]
   },
   "author": "Carlos Henrique <carlosh.mb@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@unaspinterncenter/eslint-config": "*"
+  }
 }
