@@ -1,8 +1,9 @@
+require("dotenv").config()
 module.exports = {
   dialect: process.env.DB_DIALECT || 'mysql',
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASS,
-  database: process.env.DATABASE,
+  username: "root",
+  password:"",
+  database: "testesequelize",
   operatorAliases: false,
   define: {
     timestamps: true,
