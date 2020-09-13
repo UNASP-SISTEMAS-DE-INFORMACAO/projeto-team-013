@@ -2,14 +2,16 @@ const { User } = require('../models')
 
 class UserController {
   async store(req, res) {
-    const { idCurso, RA, Email, Nome } = req.body
-
-    if (idCurso && RA && Email && Nome) {
-      return res.status(400)
+    const { id_curso, ra, email, nome } = req.body
+    const is_admin = 0
+    console.log(req.body)
+    if (!id_curso && !ra && !email && !nome) {
+      console.log(Nome)
+      return res.status(400).end()
     }
 
     try {
-      await User.create({ idCurso, RA, Email, Nome })
+      await User.create({ id_curso, ra, email, nome ,is_admin})
       return res.status(201).end()
     } catch (error) {
       console.log(error)

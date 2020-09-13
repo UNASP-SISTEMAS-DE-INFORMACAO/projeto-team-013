@@ -2,24 +2,24 @@
 
 module.exports = function (sequelize, DataTypes) {
   const User = sequelize.define('User', {
-    IsAdmin: {
+    is_admin: {
       type: DataTypes.INTEGER(1),
       allowNull: true
     },
-    idCurso: {
+    id_curso: {
       type: DataTypes.INTEGER(11),
       allowNull: true
     },
-    RA: {
+    ra: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true
     },
-    Email: {
+    email: {
       type: DataTypes.STRING(500),
       allowNull: true
     },
-    Nome: {
+    nome: {
       type: DataTypes.STRING(500),
       allowNull: true
     }
