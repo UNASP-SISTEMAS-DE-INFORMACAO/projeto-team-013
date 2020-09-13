@@ -1,12 +1,3 @@
-const express = require('express')
-const cors = require('cors')
-const routes = require('./routes')
+const server = require('./server.js')
 
-const app = express()
-
-app.use(cors())
-app.use(routes)
-
-app.listen(3333, () => {
-  console.log('Server is running on port 3333')
-})
+server.listen(3000)
