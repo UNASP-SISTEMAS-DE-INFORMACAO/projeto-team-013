@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
+  "scripts": {
+    "test": "jest"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
@@ -11,6 +14,7 @@
   "author": "Carlos Henrique <carlosh.mb@outlook.com>",
   "license": "MIT",
   "devDependencies": {
-    "@unaspinterncenter/eslint-config": "*"
+    "@unaspinterncenter/eslint-config": "*",
+    "jest": "^26.4.2"
   }
 }
