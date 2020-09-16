@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1600124401309" clover="3.2.0">
-  <project timestamp="1600124401309" name="All files">
-    <metrics statements="101" coveredstatements="74" conditionals="27" coveredconditionals="15" methods="17" coveredmethods="12" elements="145" coveredelements="101" complexity="0" loc="101" ncloc="101" packages="6" files="11" classes="11"/>
+<coverage generated="1600292128273" clover="3.2.0">
+  <project timestamp="1600292128273" name="All files">
+    <metrics statements="110" coveredstatements="82" conditionals="27" coveredconditionals="15" methods="17" coveredmethods="12" elements="154" coveredelements="109" complexity="0" loc="110" ncloc="110" packages="7" files="12" classes="12"/>
     <package name="src">
-      <metrics statements="29" coveredstatements="21" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <metrics statements="33" coveredstatements="25" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="3"/>
       <file name="index.js" path="/home/carlos/Documentos/Projects/projeto-team-013/unaspinterncenter/packages/server/src/index.js">
         <metrics statements="7" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
@@ -15,56 +15,63 @@
         <line num="14" count="0" type="stmt"/>
       </file>
       <file name="routes.js" path="/home/carlos/Documentos/Projects/projeto-team-013/unaspinterncenter/packages/server/src/routes.js">
-        <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
       </file>
       <file name="server.js" path="/home/carlos/Documentos/Projects/projeto-team-013/unaspinterncenter/packages/server/src/server.js">
-        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.app.controllers">
-      <metrics statements="18" coveredstatements="17" conditionals="10" coveredconditionals="8" methods="2" coveredmethods="2"/>
+      <metrics statements="21" coveredstatements="19" conditionals="10" coveredconditionals="8" methods="2" coveredmethods="2"/>
       <file name="UserController.js" path="/home/carlos/Documentos/Projects/projeto-team-013/unaspinterncenter/packages/server/src/app/controllers/UserController.js">
-        <metrics statements="18" coveredstatements="17" conditionals="10" coveredconditionals="8" methods="2" coveredmethods="2"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="8" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
-        <line num="21" count="2" type="cond" truecount="3" falsecount="1"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="27" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="28" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
+        <metrics statements="21" coveredstatements="19" conditionals="10" coveredconditionals="8" methods="2" coveredmethods="2"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="38" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.app.middleware">
@@ -96,9 +103,9 @@
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
-        <line num="40" count="5" type="cond" truecount="1" falsecount="1"/>
-        <line num="41" count="5" type="stmt"/>
-        <line num="43" count="5" type="stmt"/>
+        <line num="40" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="41" count="6" type="stmt"/>
+        <line num="43" count="6" type="stmt"/>
         <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="48" count="0" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
@@ -127,6 +134,14 @@
         <line num="37" count="2" type="stmt"/>
         <line num="38" count="2" type="stmt"/>
         <line num="40" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.app.validators">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="UserValidator.js" path="/home/carlos/Documentos/Projects/projeto-team-013/unaspinterncenter/packages/server/src/app/validators/UserValidator.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.config">
