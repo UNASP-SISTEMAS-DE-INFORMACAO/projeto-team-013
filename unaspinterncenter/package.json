@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
+  "scripts": {
+    "postinstall": "cd ./packages/app-expo && expo-yarn-workspaces postinstall"
+  },
   "workspaces": {
     "packages": [
       "packages/*"

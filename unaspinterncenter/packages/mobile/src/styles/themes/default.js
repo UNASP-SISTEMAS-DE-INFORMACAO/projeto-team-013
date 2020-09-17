@@ -17,7 +17,7 @@ export default {
         secundary: '#F05023',
         success: '#9DCA83',
         danger: '#E37A7A',
-        inative: '#A8A8A8',
+        inative: '#18588F',
     },
 
     metrics: {
