@@ -4,11 +4,13 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "postinstall": "cd ./packages/mobile && expo-yarn-workspaces postinstall",
     "test": "jest"
   },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/shared/*"
     ]
   },
   "author": "Carlos Henrique <carlosh.mb@outlook.com>",
