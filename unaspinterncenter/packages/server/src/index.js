@@ -1,12 +1,14 @@
-const express = require("express");
-const cors = require("cors");
-const routes = require("./routes");
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+})
 
-const app = express();
+const swaggerUi = require('swagger-ui-express')
 
-app.use(cors());
-app.use(routes);
+const server = require('./server.js')
+const swaggerOptions = require('./config/swaggerConfig')
 
-app.listen(3333, () => {
-  console.log("Server is running on port 3333");
-});
+server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions))
+
+server.listen(3000)
+
+console.log('server running at http://localhost:3000')
