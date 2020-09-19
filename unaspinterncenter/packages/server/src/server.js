@@ -1,5 +1,6 @@
 const express = require('express')
 const routes = require('./routes')
+const { errors } = require('celebrate')
 const cors = require('cors')
 const path = require('path')
 
@@ -22,6 +23,7 @@ class App {
 
   routes() {
     this.express.use(routes)
+    this.express.use(errors())
   }
 }
 

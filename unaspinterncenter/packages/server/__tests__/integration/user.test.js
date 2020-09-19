@@ -2,6 +2,8 @@ const request = require('supertest')
 const app = require('../../src/server')
 
 const { User } = require('../../src/app/models')
+const factory = require('../factories')
+
 const truncate = require('../utils/truncate')
 
 describe('UserController', () => {
@@ -11,9 +13,9 @@ describe('UserController', () => {
 
   it('should return a created user', async () => {
     const response = await request(app).post('/users').send({
-      ra: '65712',
-      id_course: 2,
-      email: 'carlosb@outlook.com',
+      ra: '127441',
+      id_course: '2',
+      email: 'carlad.mb@outlook.com',
       name: 'Carlos Henrique Matos Borges',
       password: '123456789'
     })
@@ -22,13 +24,7 @@ describe('UserController', () => {
   })
 
   it('should return a valid JTW', async () => {
-    const { email, password } = await User.create({
-      ra: '65712',
-      id_course: 2,
-      email: 'carlos@outlook.com',
-      name: 'Carlos Henrique Matos Borges',
-      password: '123456789'
-    })
+    const { email, password } = await factory.create('User')
 
     const response = await request(app).post('/auth').send({
       email,
@@ -39,13 +35,7 @@ describe('UserController', () => {
   })
 
   it('should not authenticate with invalid credentials', async () => {
-    const { email } = await User.create({
-      ra: '65712',
-      id_course: 2,
-      email: 'carlos@outlook.com',
-      name: 'Carlos Henrique Matos Borges',
-      password: '123456789'
-    })
+    const { email } = await factory.create('User')
 
     const response = await request(app).post('/auth').send({
       email,
@@ -56,22 +46,45 @@ describe('UserController', () => {
   })
 
   it('should not create a user with repeated email', async () => {
-    const { ra, id_course, email, name, password } = await User.create({
-      ra: '65712',
+    const user = await factory.create('User', {
+      email: 'carlos@outlook.com'
+    })
+
+    const response = await request(app).post('/users').send({
+      ra: user.ra,
+      id_course: user.id_course,
+      email: user.email,
+      name: user.name,
+      password: user.password
+    })
+
+    expect(response.status).toBe(409)
+  })
+
+  it('should not create a user with repeated ra', async () => {
+    const user = await factory.create('User', {
+      ra: 65712
+    })
+
+    const response = await request(app).post('/users').send({
+      ra: user.ra,
+      id_course: user.id_course,
+      email: 'carlosh.mb@outlook.com',
+      name: user.name,
+      password: user.password
+    })
+
+    expect(response.status).toBe(409)
+  })
+
+  it('should not create a user with invalid fields', async () => {
+    const response = await request(app).post('/users').send({
+      ra: '',
       id_course: 2,
-      email: 'carlos@outlook.com',
       name: 'Carlos Henrique Matos Borges',
       password: '123456789'
     })
 
-    const response = await request(app).post('/users').send({
-      ra,
-      id_course,
-      email,
-      name,
-      password
-    })
-
-    expect(response.status).toBe(409)
+    expect(response.status).toBe(400)
   })
 })

@@ -1,17 +1,28 @@
 /* eslint-disable camelcase */
+
+const { Op } = require('sequelize')
 const { User } = require('../models')
 
 class UserController {
   async store(req, res) {
-    const { email } = req.body
+    const { email, ra } = req.body
 
-    if (await User.findOne({ where: { email } })) return res.status(409).end()
+    if (
+      await User.findOne({
+        where: {
+          [Op.or]: [{ email }, { ra }]
+        }
+      })
+    ) {
+      return res.status(409).end()
+    }
 
     try {
-      const { ra, id_course, email, name, password } = req.body
+      const { ra, id_course, name, password } = req.body
       await User.create({ id_course, ra, email, name, password })
       return res.status(201).end()
     } catch (error) {
+      console.log(error)
       return res.status(400).end()
     }
   }
