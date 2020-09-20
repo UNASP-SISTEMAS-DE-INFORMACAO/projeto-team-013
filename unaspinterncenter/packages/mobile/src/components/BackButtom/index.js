@@ -1,14 +1,17 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, { useContext } from 'react'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { ThemeContext } from 'styled-components'
 
-import { Container } from './styles';
+import { Container } from './styles'
 
-const BackButtom = () => {
+const BackButtom = ({ handlePress }) => {
+  const { colors } = useContext(ThemeContext)
+
   return (
-        <Container>
-             <Icon name="keyboard-arrow-left" color="#fff" size={30}/>
-        </Container>
+    <Container onPress={() => handlePress()}>
+      <Icon name="keyboard-arrow-left" color={colors.white} size={30} />
+    </Container>
   )
 }
 
-export default BackButtom;
+export default BackButtom

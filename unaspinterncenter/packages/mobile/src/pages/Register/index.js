@@ -1,43 +1,39 @@
-import React, {useState, useRef} from 'react';
-import Buttom from '../../components/Buttom';
-import BackButtom from '../../components/BackButtom';
-import { Container, Logo, Header, WelcomeText, Email, ProgressContainer, Progress, ScrollForm, Form } from './styles';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react'
+import Buttom from '../../components/Buttom'
+import BackButtom from '../../components/BackButtom'
+import Progress from '../../components/Progress'
+import Input from '../../components/Input'
+import { Container, Logo, Header, WelcomeText, Form } from './styles'
 
-const Register = ({navigation}) => {
-    const [progress, setProgress] = useState(
-        [
-            {progress:false},
-            {progress:true},
-            {progress:true}
-        ]
-    )
+const Register = ({ navigation, route }) => {
+  const { student } = route.params
 
-    const scrollRef = useRef()
-    const onFabPress = () => {
-        scrollRef.current?.scrollTo({
-            h : 0,
-            animated : true
-        });
-    }
-    return (
-        <Container>
-            <Header>
-                <BackButtom/>
-                <Logo source={require('../../assets/unasp.png')} />
-                <WelcomeText>Ola Alexsander, digite seu email para continuarmos com seu cadastro</WelcomeText>
-                <ProgressContainer>
-                {progress.map((item) => <Progress status={item.progress}/>)}
-                </ProgressContainer>  
-            </Header>
-            <ScrollForm
-            data={progress}
-            horizontal={true}
-            scrollEnabled={false}
-            ref={scrollRef}
-            renderItem={() => (<Form><Email placeholder="Digite seu Email"/>
-            <Buttom tittle={"Confirmar"} handlePress={() => onFabPress()}/></Form>)}/>
-        </Container>
-    )
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  return (
+    <Container>
+      <Header>
+        <BackButtom handlePress={() => navigation.goBack()} />
+        <Logo source={require('../../assets/unasp.png')} />
+        <WelcomeText>
+          Ola {student.name}, digite seu email para continuarmos com seu
+          cadastro
+        </WelcomeText>
+        <Progress level={1} />
+      </Header>
+
+      <Form>
+        <Input onTextChange={setEmail} placeholder="Digite seu Email" />
+        <Buttom
+          loading={loading}
+          tittle={'Confirmar'}
+          handlePress={() => alert(email)}
+        />
+      </Form>
+    </Container>
+  )
 }
 
-export default Register;
+export default Register

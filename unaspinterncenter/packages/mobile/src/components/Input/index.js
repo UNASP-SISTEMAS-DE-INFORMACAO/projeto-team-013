@@ -1,16 +1,14 @@
-import React from 'react';
+import React from 'react'
 
+import { Container, TextInput, Error } from './styles'
 
-import { Container } from './styles';
-
-const Input = ({placeholder}) => {
-  return(
-  
-  <Container placeholder={placeholder}>
-
-  </Container>
-  
-  );
+const Input = ({ placeholder = '', error = '', onTextChange }) => {
+  return (
+    <Container>
+      <TextInput onChangeText={onTextChange} placeholder={placeholder} />
+      <Error>{error}</Error>
+    </Container>
+  )
 }
 
-export default Input;
+export default Input

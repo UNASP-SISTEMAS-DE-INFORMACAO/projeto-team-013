@@ -1,10 +1,10 @@
-import api from "./api";
+import api from './api'
 
 class RaServices {
   async getStudent(RA) {
-    const { data } = await api.get(`/students?ra=${RA}`);
-    return data;
+    const { data } = await api.get(`/students?ra=${RA}`)
+    return data
   }
 }
 
-export default new RaServices();
+export default new RaServices()

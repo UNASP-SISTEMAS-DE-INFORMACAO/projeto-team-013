@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react'
+import { ActivityIndicator } from 'react-native'
+import { ThemeContext } from 'styled-components'
 
+import { Container, Text } from './styles'
 
-import { Container, Text } from './styles';
+const Buttom = ({ tittle, handlePress, loading = false }) => {
+  const { colors } = useContext(ThemeContext)
 
-const Buttom = ({tittle, handlePress}) => {
   return (
-      <Container onPress={() => handlePress()}>
-          <Text>
-            {tittle}
-          </Text>
-      </Container>
-  );
+    <Container onPress={() => handlePress()}>
+      {loading ? (
+        <ActivityIndicator size={'small'} color={colors.white} />
+      ) : (
+        <Text>{tittle}</Text>
+      )}
+    </Container>
+  )
 }
 
-export default Buttom;
+export default Buttom

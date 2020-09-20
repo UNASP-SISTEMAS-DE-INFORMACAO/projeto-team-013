@@ -1,49 +1,50 @@
-import React, { useState } from "react";
-import Buttom from "../../components/Buttom";
-import BackButtom from "../../components/BackButtom";
-import {
-  Container,
-  Logo,
-  Header,
-  WelcomeText,
-  Email,
-  Form,
-  ProgressContainer,
-  Progress,
-} from "./styles";
-import RaServices from "../../services/RaServices";
+import React, { useState } from 'react'
+import Buttom from '../../components/Buttom'
+import BackButtom from '../../components/BackButtom'
+import Progress from '../../components/Progress'
+import Input from '../../components/Input'
+import { Container, Logo, Header, WelcomeText, Form } from './styles'
+import RaServices from '../../services/RaServices'
 
 const FindStudent = ({ navigation }) => {
-  const [progress, setProgress] = useState([
-    { progress: false },
-    { progress: true },
-    { progress: true },
-  ]);
-  const [RA, setRA] = useState();
+  const [loading, setLoading] = useState(false)
+  const [ra, setRA] = useState()
+  const [error, setError] = useState()
+
   const getStudent = async () => {
-    const student = await RaServices.getStudent(RA);
-    console.log(student);
-  };
+    setLoading(true)
+    const student = await RaServices.getStudent(ra)
+    setLoading(true)
+    if (student[0]) {
+      setLoading(false)
+      navigation.navigate('Register', { student: student[0] })
+      setError('')
+      return
+    }
+
+    setError('Lamento, não encontramos o RA digitado.')
+    setLoading(false)
+  }
   return (
     <Container>
       <Header>
-        <BackButtom />
-        <Logo source={require("../../assets/unasp.png")} />
+        <BackButtom handlePress={() => navigation.goBack()} />
+        <Logo source={require('../../assets/unasp.png')} />
         <WelcomeText>
           Para continuar, por favor insira seu RA abaixo
         </WelcomeText>
-        <ProgressContainer>
-          {progress.map((item) => (
-            <Progress status={item.progress} />
-          ))}
-        </ProgressContainer>
+        <Progress level={0} />
       </Header>
       <Form>
-        <Email placeholder="Digite seu RA" />
-        <Buttom tittle={"Confirmar"} handlePress={() => getStudent()} />
+        <Input onTextChange={setRA} error={error} placeholder="Digite seu RA" />
+        <Buttom
+          loading={loading}
+          tittle={'Confirmar'}
+          handlePress={() => getStudent()}
+        />
       </Form>
     </Container>
-  );
-};
+  )
+}
 
-export default FindStudent;
+export default FindStudent
