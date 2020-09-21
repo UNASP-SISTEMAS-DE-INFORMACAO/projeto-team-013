@@ -1,15 +1,15 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { setNavigator } from '../services/navigation'
 
-import AuthRoutes from './auth.routes';
+import AuthRoutes from './auth.routes'
 
 const Routes = () => {
-
-    return (
-        <NavigationContainer>
-            <AuthRoutes />
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer ref={setNavigator}>
+      <AuthRoutes />
+    </NavigationContainer>
+  )
 }
 
-export default Routes;
+export default Routes

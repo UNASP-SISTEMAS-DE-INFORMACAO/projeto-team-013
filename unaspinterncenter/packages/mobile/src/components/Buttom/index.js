@@ -8,7 +8,7 @@ const Buttom = ({ tittle, handlePress, loading = false }) => {
   const { colors } = useContext(ThemeContext)
 
   return (
-    <Container onPress={() => handlePress()}>
+    <Container onPress={handlePress}>
       {loading ? (
         <ActivityIndicator size={'small'} color={colors.white} />
       ) : (

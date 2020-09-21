@@ -1,30 +1,32 @@
-import React, { useState } from 'react'
+/* eslint-disable react/prop-types */
+import React from 'react'
+
+import { Formik } from 'formik'
+import * as yup from 'yup'
+
 import Buttom from '../../components/Buttom'
 import BackButtom from '../../components/BackButtom'
 import Progress from '../../components/Progress'
 import Input from '../../components/Input'
 import { Container, Logo, Header, WelcomeText, Form } from './styles'
-import RaServices from '../../services/RaServices'
 
-const FindStudent = ({ navigation }) => {
-  const [loading, setLoading] = useState(false)
-  const [ra, setRA] = useState()
-  const [error, setError] = useState()
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-  const getStudent = async () => {
-    setLoading(true)
-    const student = await RaServices.getStudent(ra)
-    setLoading(true)
-    if (student[0]) {
-      setLoading(false)
-      navigation.navigate('Register', { student: student[0] })
-      setError('')
-      return
-    }
+import SignUpActions from '../../store/ducks/signup'
 
-    setError('Lamento, não encontramos o RA digitado.')
-    setLoading(false)
+const FormSchema = yup.object({
+  ra: yup
+    .string()
+    .required('Este campo deve ser preenchido')
+    .min(4, 'Minimo de 4 caracteres')
+})
+
+const FindStudent = ({ navigation, loading, error, findStudentRequest }) => {
+  const inital = {
+    ra: ''
   }
+
   return (
     <Container>
       <Header>
@@ -35,16 +37,44 @@ const FindStudent = ({ navigation }) => {
         </WelcomeText>
         <Progress level={0} />
       </Header>
-      <Form>
-        <Input onTextChange={setRA} error={error} placeholder="Digite seu RA" />
-        <Buttom
-          loading={loading}
-          tittle={'Confirmar'}
-          handlePress={() => getStudent()}
-        />
-      </Form>
+      <Formik
+        initialValues={inital}
+        validationSchema={FormSchema}
+        onSubmit={values => {
+          findStudentRequest(values.ra)
+        }}
+      >
+        {props => (
+          <Form>
+            <Input
+              keyboardType="number-pad"
+              onTextChange={props.handleChange('ra')}
+              error={
+                (props.touched.ra && props.errors.ra) ||
+                (props.touched.ra && error)
+              }
+              value={props.values.ra}
+              onBlur={props.handleBlur('ra')}
+              placeholder="Digite seu RA"
+            />
+            <Buttom
+              loading={loading}
+              tittle={'Confirmar'}
+              handlePress={props.handleSubmit}
+            />
+          </Form>
+        )}
+      </Formik>
     </Container>
   )
 }
 
-export default FindStudent
+const mapStateToProps = state => ({
+  loading: state.signup.loading,
+  error: state.signup.error
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(SignUpActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(FindStudent)

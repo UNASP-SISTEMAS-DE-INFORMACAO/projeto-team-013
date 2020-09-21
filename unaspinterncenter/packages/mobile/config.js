@@ -1,3 +1,3 @@
-import {API_URL} from "react-native-dotenv"
+import { API_URL } from 'react-native-dotenv'
 
-export default {API_URL}
+export default { API_URL }

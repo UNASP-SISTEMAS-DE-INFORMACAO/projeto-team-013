@@ -2,10 +2,25 @@ import React from 'react'
 
 import { Container, TextInput, Error } from './styles'
 
-const Input = ({ placeholder = '', error = '', onTextChange }) => {
+const Input = ({
+  placeholder = '',
+  error = '',
+  onTextChange,
+  value,
+  onBlur,
+  secureTextEntry,
+  keyboardType
+}) => {
   return (
     <Container>
-      <TextInput onChangeText={onTextChange} placeholder={placeholder} />
+      <TextInput
+        onChangeText={onTextChange}
+        placeholder={placeholder}
+        value={value}
+        onBlur={onBlur}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+      />
       <Error>{error}</Error>
     </Container>
   )

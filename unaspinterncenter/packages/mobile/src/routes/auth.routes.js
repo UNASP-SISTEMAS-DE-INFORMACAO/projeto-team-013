@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Register from '../pages/Register'
 import Welcome from '../pages/Welcome'
 import FindStudent from '../pages/FindStudent'
+import ConfirmPassword from '../pages/ConfirmPassword'
 
 const Stack = createStackNavigator()
 
@@ -24,6 +25,11 @@ function AuthRoutes() {
         options={{ headerShown: false }}
         name="FindStudent"
         component={FindStudent}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ConfirmPassword"
+        component={ConfirmPassword}
       />
     </Stack.Navigator>
   )

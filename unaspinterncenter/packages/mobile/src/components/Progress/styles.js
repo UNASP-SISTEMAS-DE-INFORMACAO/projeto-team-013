@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
-  width: 94px;
+  width: 72px;
   height: 22px;
   position: absolute;
   flex-direction: row;
@@ -11,8 +11,8 @@ export const Container = styled.View`
 `
 
 export const ProgressItem = styled.View`
-  width: 22px;
-  height: 22px;
+  width: 12px;
+  height: 12px;
   border-radius: 50px;
   background: ${props =>
     props.status ? props.theme.colors.inative : props.theme.colors.white};

@@ -8,7 +8,6 @@ export const Container = styled.TouchableOpacity`
   border-radius: 6px;
   justify-content: center;
   align-items: center;
-  bottom: ${props => props.theme.metrics.basePadding}px;
 `
 
 export const Text = styled.Text`
