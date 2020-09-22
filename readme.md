@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Unasp - CDE" title="#project" src="." width="250px" />
+    <img alt="Unasp - CDE" title="#project" src="https://cdn1.unasp.br/noticias/wp-content/uploads/2018/11/21164848/Logo-UNASP-03.png" width="200px" />
 </h1>
 
 <h4 align="center">
