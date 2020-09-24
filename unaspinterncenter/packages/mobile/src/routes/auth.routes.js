@@ -1,17 +1,38 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 
-import Default from '../pages/Default';
+import Register from '../pages/Register'
+import Welcome from '../pages/Welcome'
+import FindStudent from '../pages/FindStudent'
+import ConfirmPassword from '../pages/ConfirmPassword'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 function AuthRoutes() {
-    return (
-        <Stack.Navigator
-            initialRouteName="SignIn">
-            <Stack.Screen options={{ headerShown: false }} name="Default" component={Default} />
-        </Stack.Navigator>
-    );
+  return (
+    <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Register"
+        component={Register}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Welcome"
+        component={Welcome}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="FindStudent"
+        component={FindStudent}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="ConfirmPassword"
+        component={ConfirmPassword}
+      />
+    </Stack.Navigator>
+  )
 }
 
-export default AuthRoutes;
+export default AuthRoutes

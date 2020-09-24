@@ -3,11 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
+  "scripts": {
+    "postinstall": "cd ./packages/mobile && expo-yarn-workspaces postinstall",
+    "test": "jest"
+  },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/shared/*"
     ]
   },
   "author": "Carlos Henrique <carlosh.mb@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@unaspinterncenter/eslint-config": "*",
+    "jest": "^26.4.2"
+  }
 }

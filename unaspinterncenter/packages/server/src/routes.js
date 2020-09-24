@@ -1,9 +1,17 @@
-const express = require("express");
+const { celebrate, Joi, errors, Segments } = require('celebrate')
 
-const routes = express.Router();
+const express = require('express')
+const routes = express.Router()
+const auth = require('./app/middleware/auth')
+const UserController = require('./app/controllers/UserController')
 
-routes.get("/", (req, res) => {
-  return res.json({ message: "Hello monorepo" });
-});
+const UserValidator = require('./app/validators/UserValidator')
 
-module.exports = routes;
+routes.get('/', (req, res) => {
+  res.send('/ routes is working as expected')
+})
+
+routes.post('/users', UserValidator.store, UserController.store)
+routes.post('/auth', UserValidator.login, UserController.login)
+
+module.exports = routes
