@@ -6,7 +6,6 @@ const { User } = require('../models')
 class UserController {
   async store(req, res) {
     const { email, ra } = req.body
-
     if (
       await User.findOne({
         where: {
@@ -16,7 +15,6 @@ class UserController {
     ) {
       return res.status(409).end()
     }
-
     try {
       const { ra, id_course, name, password } = req.body
       await User.create({ id_course, ra, email, name, password })
