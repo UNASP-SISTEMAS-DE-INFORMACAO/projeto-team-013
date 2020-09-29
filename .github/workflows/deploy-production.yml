@@ -1,0 +1,49 @@
+name: Node CI
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'unaspinterncenter/packages/server**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn install
+      working-directory: unaspinterncenter/packages/server
+    - run: yarn test
+      working-directory: unaspinterncenter/packages/server
+      
+  deploy:
+      needs: [test]
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: SSH and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{  secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSHKEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+           cd ~/applications/projeto-team-013/unaspinterncenter
+           git pull origin master
+           yarn
+           cd packages/server
+           yarn sequelize db:migrate
+           pm2 restart api
