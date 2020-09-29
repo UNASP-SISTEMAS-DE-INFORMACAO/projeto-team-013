@@ -46,4 +46,4 @@ jobs:
            yarn
            cd packages/server
            yarn sequelize db:migrate
-           pm2 restart api
+           pm2 restart unaspinterncenter
