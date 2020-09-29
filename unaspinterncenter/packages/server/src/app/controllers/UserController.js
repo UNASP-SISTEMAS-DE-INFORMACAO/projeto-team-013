@@ -29,21 +29,21 @@ class UserController {
 
   async login(req, res) {
     const { email, password } = req.body
-    if (email && password) {
-      const user = await User.findOne({
-        where: {
-          email
-        }
-      })
-      if (user) {
-        if (await user.checkPassword(password)) {
-          const { ra, is_admin } = user
-          const token = User.generateToken({ ra, is_admin })
-          return res.status(200).json({ token, is_admin })
-        } else {
-          return res.status(401).send('not auth')
-        }
+    const user = await User.findOne({
+      where: {
+        email
       }
+    })
+    if (user) {
+      if (await user.checkPassword(password)) {
+        const { ra, is_admin } = user
+        const token = User.generateToken({ ra, is_admin })
+        return res.status(200).json({ token, is_admin })
+      } else {
+        return res.status(401).end()
+      }
+    } else {
+      return res.status(401).end()
     }
   }
 }
