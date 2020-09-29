@@ -6,9 +6,8 @@
   🚀 Unasp central de estágios
 </h4>
 
-
 <p align="center">
-  <img alt="Frontend" src="." width="100%">
+  <img alt="Frontend" src=".github/assets/application.png" width="100%">
 </p>
 
 ## :rocket: Tecnologias
@@ -38,10 +37,8 @@ Depois que o merge da sua pull request for feito, você pode deletar a sua branc
 
 ## :memo: Documentação
 
-Aqui você pode acessar a documentação do projeto. 
+Aqui você pode acessar a documentação do projeto.
 
 Veja o arquivo [Doc](https://docs.google.com/document/d/1yCpRtHxhnGgYseGtYbgQocLM2417qYlvwcsA7wwbHBc/edit) para mais detalhes.
 
 ---
-
-
