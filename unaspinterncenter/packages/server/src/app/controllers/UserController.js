@@ -20,7 +20,6 @@ class UserController {
       await User.create({ id_course, ra, email, name, password })
       return res.status(201).end()
     } catch (error) {
-      console.log(error)
       return res.status(400).end()
     }
   }
