@@ -46,4 +46,28 @@ describe('ModuleController', () => {
 
     expect(response.status).toBe(401)
   })
+
+  it('should not exclude a module when user is not admin',async()=>{
+    const token = User.generateToken(user.ra, false)
+    const module = await factory.create('Module')
+    
+    const response = await request(app)
+      .delete('/modules/'+module.id)
+      .set('Authorization', `Bearer ${token}`)
+      .send()
+
+    expect(response.status).toBe(401)
+  })
+
+  it('should exclude a module when user is admin',async()=>{
+    const token = User.generateToken(user.ra, true)
+    const module = await factory.create('Module')
+    
+    const response = await request(app)
+      .delete('/modules/'+module.id)
+      .set('Authorization', `Bearer ${token}`)
+      .send()
+
+    expect(response.status).toBe(204)
+  })
 })
