@@ -18,6 +18,38 @@ class ModuleController {
       return res.status(400).end()
     }
   }
+
+  async index(req, res) {
+    const filters = {}
+
+    if (req.query.course) {
+      filters.id_course = req.query.course
+    }
+
+    try {
+      const modules = await Module.findAll({ where: filters })
+      return res.send(modules)
+    } catch (error) {
+      return res.status(400).end()
+    }
+  }
+
+  async update(req, res) {
+    const { id } = req.params
+
+    const module = await Module.findByPk(id)
+
+    if (!module) return res.status(400).end()
+
+    const { name, id_course, description } = req.body
+
+    try {
+      await Module.update({ name, id_course, description }, { where: { id } })
+      return res.status(204).end()
+    } catch (error) {
+      return res.status(400).end()
+    }
+  }
 }
 
 module.exports = new ModuleController()

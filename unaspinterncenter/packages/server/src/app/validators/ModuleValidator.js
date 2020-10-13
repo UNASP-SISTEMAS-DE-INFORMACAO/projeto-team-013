@@ -7,5 +7,16 @@ module.exports = {
       description: Joi.string().min(6).required(),
       id_course: Joi.number().required()
     })
+  }),
+  index: celebrate({
+    [Segments.QUERY]: Joi.object().keys({ course: Joi.number() })
+  }),
+  update: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({ id: Joi.number().required() }),
+    [Segments.BODY]: Joi.object().keys({
+      name: Joi.string().min(6),
+      description: Joi.string().min(6),
+      id_course: Joi.number()
+    })
   })
 }
