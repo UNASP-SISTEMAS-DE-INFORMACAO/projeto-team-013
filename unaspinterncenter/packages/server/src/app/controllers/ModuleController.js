@@ -17,20 +17,21 @@ class ModuleController {
       return res.status(400).end()
     }
   }
-  async exclude(req,res){
-    const { id } = req.params;
-    if(!req.admin) return res.status(401).send()
-    try{
-      const module  = await Module.findByPk(id)
-      if(module){
+
+  async exclude(req, res) {
+    const { id } = req.params
+    if (!req.admin) return res.status(401).send()
+
+    try {
+      const module = await Module.findByPk(id)
+      if (module) {
         await module.destroy()
         return res.status(204).send()
-      }
-      else{
+      } else {
         throw Error('Module not found')
       }
-    }catch(error){
-      return res.status(400).end();
+    } catch (error) {
+      return res.status(400).end()
     }
   }
 }
