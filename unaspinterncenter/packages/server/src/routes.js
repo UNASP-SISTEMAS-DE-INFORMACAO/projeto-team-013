@@ -18,7 +18,12 @@ routes.post('/auth', UserValidator.login, UserController.login)
 
 routes.post('/modules', auth, ModuleValidator.store, ModuleController.store)
 routes.delete('/modules/:id',auth,ModuleController.exclude)
-
-
+routes.get('/modules', auth, ModuleValidator.index, ModuleController.index)
+routes.put(
+  '/modules/:id',
+  auth,
+  ModuleValidator.update,
+  ModuleController.update
+)
 
 module.exports = routes
