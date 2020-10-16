@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   background: ${props => props.theme.colors.white};
 `
@@ -29,9 +29,7 @@ export const Text = styled.Text`
 `
 
 export const Form = styled.View`
-  flex: 1;
   width: 100%;
-  justify-content: space-between;
   align-items: center;
 `
 

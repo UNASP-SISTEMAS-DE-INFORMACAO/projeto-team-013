@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   authRequest: ['email', 'password'],
-  authSuccess: ['admin', 'ra'],
+  authSuccess: ['ra'],
   authFailure: ['error'],
   isAuthenticated: []
 })
@@ -14,7 +14,6 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   ra: null,
   authenticated: false,
-  admin: false,
   error: null,
   loading: false
 })
@@ -31,7 +30,6 @@ export const reducer = createReducer(INITIAL_STATE, {
     return state.merge({
       ra: action.ra,
       authenticated: true,
-      admin: action.admin,
       error: false,
       loading: false
     })
