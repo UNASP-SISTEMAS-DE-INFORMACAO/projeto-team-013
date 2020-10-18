@@ -18,19 +18,6 @@ class ModuleController {
     }
   }
 
-  async exclude(req, res) {
-    const { id } = req.params
-    if (!req.admin) return res.status(401).send()
-
-    try {
-      const module = await Module.findByPk(id)
-      if (module) {
-        await module.destroy()
-        return res.status(204).send()
-      } else {
-        throw Error('Module not found')
-      }
-      
   async index(req, res) {
     const filters = {}
 
@@ -42,6 +29,21 @@ class ModuleController {
       const modules = await Module.findAll({ where: filters })
       return res.send(modules)
     } catch (error) {
+      return res.status(400).end()
+    }
+  }
+
+  async exclude(req, res) {
+    const { id } = req.params
+    if (!req.admin) return res.status(401).send()
+
+    try {
+      const module = await Module.findByPk(id)
+      if (!module) return res.status(404).end()
+      await module.destroy()
+      return res.status(204).send()
+    } catch (error) {
+      console.log(error)
       return res.status(400).end()
     }
   }

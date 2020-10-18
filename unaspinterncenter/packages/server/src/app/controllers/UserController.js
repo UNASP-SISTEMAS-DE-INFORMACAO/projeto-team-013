@@ -24,14 +24,31 @@ class UserController {
     }
   }
 
+  async show(req, res) {
+    const { ra } = req.params
+
+    try {
+      const user = await User.findByPk(ra, {
+        attributes: { exclude: ['password_hash'] }
+      })
+      if (!user) return res.status(404).end()
+      return res.status(200).send(user)
+    } catch (error) {
+      return res.status(400).end()
+    }
+  }
+
   async login(req, res) {
     const { email, password } = req.body
-    const user = await User.findOne({
-      where: {
-        email
-      }
-    })
-    if (user) {
+    try {
+      const user = await User.findOne({
+        where: {
+          email
+        }
+      })
+
+      if (!user) return res.status(404).send()
+
       if (await user.checkPassword(password)) {
         const { ra, is_admin } = user
         const token = User.generateToken({ ra, is_admin })
@@ -39,8 +56,8 @@ class UserController {
       } else {
         return res.status(401).end()
       }
-    } else {
-      return res.status(401).end()
+    } catch (error) {
+      return res.status(400).end()
     }
   }
 }
