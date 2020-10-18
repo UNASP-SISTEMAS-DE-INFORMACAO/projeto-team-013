@@ -8,9 +8,11 @@ module.exports = {
       id_course: Joi.number().required()
     })
   }),
-  exclude:celebrate({
+  exclude: celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-      id:Joi.number().min(1).required(),
+      id: Joi.number().min(1).required()
+    })
+  }),
   index: celebrate({
     [Segments.QUERY]: Joi.object().keys({ course: Joi.number() })
   }),

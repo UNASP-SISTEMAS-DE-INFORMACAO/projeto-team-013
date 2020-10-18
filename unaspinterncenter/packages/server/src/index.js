@@ -10,5 +10,3 @@ const swaggerOptions = require('./config/swaggerConfig')
 server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions))
 
 server.listen(3000)
-
-console.log('server running at http://localhost:3000')

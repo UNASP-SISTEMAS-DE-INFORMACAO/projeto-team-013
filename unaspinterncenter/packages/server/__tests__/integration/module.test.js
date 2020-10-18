@@ -12,11 +12,7 @@ describe('ModuleController', () => {
   })
 
   it('should return a created module when user is admin', async () => {
-    const { ra, is_admin } = await factory.create('User', {
-      is_admin: true
-    })
-
-    const token = User.generateToken({ ra, is_admin })
+    const token = User.generateToken({ ra: 65712, is_admin: true })
     const response = await request(app)
       .post('/modules')
       .set('Authorization', `Bearer ${token}`)
@@ -24,16 +20,14 @@ describe('ModuleController', () => {
         name: 'Atividades complementares',
         description:
           'Modulo criado para ser realizado a entrega das atividades complementares dos alunos do curso de Sistemas de Informações',
-        id_course: '2'
+        id_course: 2
       })
 
     expect(response.status).toBe(201)
   })
 
   it('should not return a created module when user is not admin', async () => {
-    const user = await factory.create('User')
-
-    const token = User.generateToken(user.ra, false)
+    const token = User.generateToken({ ra: 65712, is_admin: false })
     const response = await request(app)
       .post('/modules')
       .set('Authorization', `Bearer ${token}`)
@@ -41,7 +35,7 @@ describe('ModuleController', () => {
         name: 'Atividades complementares',
         description:
           'Modulo criado para ser realizado a entrega das atividades complementares dos alunos do curso de Sistemas de Informações',
-        id_course: '2'
+        id_course: 2
       })
 
     expect(response.status).toBe(401)
@@ -61,10 +55,10 @@ describe('ModuleController', () => {
 
   it('should exclude a module when user is admin', async () => {
     const token = User.generateToken({ ra: 65712, is_admin: true })
-    const module = await factory.create('Module')
+    const { id } = await factory.create('Module')
 
     const response = await request(app)
-      .delete(`/modules/${module.id}`)
+      .delete(`/modules/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .send()
 
@@ -104,7 +98,7 @@ describe('ModuleController', () => {
 
   it('should return correct changes after update', async () => {
     const module = await factory.create('Module')
-    const token = User.generateToken(65712, false)
+    const token = User.generateToken({ ra: 65712, is_admin: false })
 
     const response = await request(app)
       .put(`/modules/${module.id}`)
@@ -117,7 +111,7 @@ describe('ModuleController', () => {
   })
 
   it('should not create module with invalid fields', async () => {
-    const token = User.generateToken(65712, false)
+    const token = User.generateToken({ ra: 65712, is_admin: false })
 
     const response = await request(app)
       .post('/modules')
