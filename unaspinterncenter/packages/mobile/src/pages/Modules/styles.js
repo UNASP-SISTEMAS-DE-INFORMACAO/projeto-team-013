@@ -1,9 +1,7 @@
 import styled from 'styled-components/native'
-import { FlatList } from 'react-native'
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: ${props => props.theme.colors.white};
+export const Container = styled.ScrollView`
+  background: ${props => props.theme.colors.white};
 `
 
 export const Header = styled.View`
@@ -15,16 +13,13 @@ export const Header = styled.View`
   padding: ${props => props.theme.metrics.basePadding}px;
 `
 
-export const LoggedUser = styled.Text`
+export const Title = styled.Text`
   font-size: 18px;
   color: ${props => props.theme.colors.white};
+  font-weight: bold;
 `
 
-export const Logo = styled.Image`
-  width: 43px;
-  height: 43px;
-  border-radius: 50px;
-`
+export const BackButton = styled.TouchableOpacity``
 
 export const BackgroundHeader = styled.View`
   position: absolute;
@@ -34,22 +29,4 @@ export const BackgroundHeader = styled.View`
   background-color: ${props => props.theme.colors.primary};
   border-bottom-left-radius: ${props => props.theme.metrics.baseRadius}px;
   border-bottom-right-radius: ${props => props.theme.metrics.baseRadius}px;
-`
-export const Title = styled.Text`
-  font-size: 16px;
-  color: ${props => props.theme.colors.white};
-  font-weight: bold;
-  margin-left: 16px;
-  margin-top: 16px;
-`
-
-export const SimpleList = styled(FlatList).attrs({
-  showsHorizontalScrollIndicator: false,
-  contentContainerStyle: {
-    alignItems: 'center'
-  }
-})`
-  flex-grow: 0;
-  height: 154px;
-  margin-top: 10px;
 `

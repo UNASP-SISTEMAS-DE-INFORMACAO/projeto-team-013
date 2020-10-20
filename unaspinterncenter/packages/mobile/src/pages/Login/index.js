@@ -26,7 +26,7 @@ const FormSchema = yup.object({
     .min(8, 'Este campo deve possuir no minimo 8 caracteres')
 })
 
-const Login = ({ authRequest, loading, error }) => {
+const Login = ({ authRequest, loading, error, navigation }) => {
   const inital = {
     email: '',
     password: ''
@@ -35,7 +35,7 @@ const Login = ({ authRequest, loading, error }) => {
   return (
     <Container>
       <Header>
-        <BackButtom />
+        <BackButtom handlePress={() => navigation.goBack()}/>
         <Logo source={require('../../assets/unasp.png')} />
         <Text>Bem Vindo, para logar preencha as informações abaixo</Text>
       </Header>
@@ -44,7 +44,6 @@ const Login = ({ authRequest, loading, error }) => {
         initialValues={inital}
         validationSchema={FormSchema}
         onSubmit={values => {
-          console.log(values)
           authRequest(values.email, values.password)
         }}
       >

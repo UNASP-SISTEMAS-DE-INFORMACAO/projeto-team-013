@@ -1,15 +1,18 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import NotificationIconTab from '../components/NotificationIconTab'
 
 import Home from '../pages/Home'
+import Modules from '../pages/Modules'
 
 const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
-function AppRoutes() {
+function TabRoutes() {
   const icons = {
     Home: {
       name: 'home'
@@ -56,9 +59,29 @@ function AppRoutes() {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Home} />
       <Tab.Screen name="Notifications" component={Home} />
-      <Tab.Screen name="Modules" component={Home} />
+      <Tab.Screen name="Modules" component={Modules} />
     </Tab.Navigator>
   )
 }
 
-export default AppRoutes
+export default function DashboardRoutes() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{
+          headerShown: false
+        }}
+        name="Dashboard"
+        component={TabRoutes}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false
+        }}
+        name="Modules"
+        component={Modules}
+      />
+    </Stack.Navigator>
+  )
+}

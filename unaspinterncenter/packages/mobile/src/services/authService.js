@@ -1,4 +1,4 @@
-import { api } from './api'
+import api  from './api'
 import jwt_decode from "jwt-decode";
 
 export const signIn = async (email, password) => {
