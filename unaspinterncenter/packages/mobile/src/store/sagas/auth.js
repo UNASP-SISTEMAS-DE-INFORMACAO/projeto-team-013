@@ -3,6 +3,7 @@ import { call, put } from 'redux-saga/effects'
 import AuthActions from '../ducks/auth'
 
 import { signIn, decode } from '../../services/authService'
+import { saveUser } from '../../utils/user'
 
 export function* authenticate(action) {
   try {
@@ -10,6 +11,7 @@ export function* authenticate(action) {
     const response = yield call(signIn, email, password)
     const { token } = response
     const { ra } = decode(token)
+    yield call(saveUser, token, ra)
     yield put(AuthActions.authSuccess(ra))
   } catch (error) {
     let errroMessage = 'Servidor inacessivel no momento'

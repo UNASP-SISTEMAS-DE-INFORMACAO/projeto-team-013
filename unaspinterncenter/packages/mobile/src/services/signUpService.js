@@ -1,4 +1,4 @@
-import { apiunasp, api } from './api'
+import api, { apiunasp } from './api'
 
 export const findStudentByRA = async ra => {
   const { data } = await apiunasp.get(`/students?ra=${ra}`)

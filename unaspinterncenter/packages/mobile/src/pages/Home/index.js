@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
+import { ActivityIndicator } from 'react-native'
 import NewsCard from '../../components/NewsCard'
 import MenuCard from '../../components/MenuCard'
 import { menuItems } from '../../utils/menu'
@@ -15,16 +17,11 @@ import {
   Title
 } from './styles'
 
-const Home = ({ navigation }) => {
+import { connect } from 'react-redux'
+
+const Home = ({ navigation, username, loading }) => {
+  const { colors } = useContext(ThemeContext)
   const teste = [0, 1, 2, 3]
-
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 3000)
-  }, [])
 
   const menuNavigate = title => {
     navigation.navigate(title)
@@ -34,13 +31,12 @@ const Home = ({ navigation }) => {
     <Container>
       <BackgroundHeader />
       <Header>
-        <LoggedUser>Carlos Henrique</LoggedUser>
-        <Logo
-          source={{
-            uri:
-              'https://cdn1.unasp.br/noticias/wp-content/uploads/2018/11/21164848/Logo-UNASP-03.png'
-          }}
-        />
+        {username ? (
+          <LoggedUser>{username}</LoggedUser>
+        ) : (
+          <ActivityIndicator color={colors.white} size="large" />
+        )}
+        <Logo source={require('../../assets/unasp.png')} />
       </Header>
 
       <Title>Novidades</Title>
@@ -94,4 +90,9 @@ const Home = ({ navigation }) => {
   )
 }
 
-export default Home
+const mapStateToProps = state => ({
+  username: state.user.name,
+  loading: state.user.loading
+})
+
+export default connect(mapStateToProps, null)(Home)

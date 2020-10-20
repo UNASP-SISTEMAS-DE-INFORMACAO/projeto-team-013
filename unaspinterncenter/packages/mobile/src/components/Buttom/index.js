@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useContext } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { ThemeContext } from 'styled-components'
