@@ -4,9 +4,11 @@ const auth = require('./app/middleware/auth')
 
 const UserController = require('./app/controllers/UserController')
 const ModuleController = require('./app/controllers/ModuleController')
+const DeliveryController = require('./app/controllers/DeliveryController')
 
 const UserValidator = require('./app/validators/UserValidator')
 const ModuleValidator = require('./app/validators/ModuleValidator')
+const DeliveryValidator = require('./app/validators/DeliveryValidator')
 
 routes.get('/', (req, res) => {
   res.send('/ routes is working as expected')
@@ -24,6 +26,13 @@ routes.put(
   auth,
   ModuleValidator.update,
   ModuleController.update
+)
+
+routes.post(
+  '/modules/:id/deliveries',
+  auth,
+  DeliveryValidator.store,
+  DeliveryController.store
 )
 
 module.exports = routes
