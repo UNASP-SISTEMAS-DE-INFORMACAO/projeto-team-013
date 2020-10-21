@@ -18,5 +18,13 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true
     }
   })
+
+  Module.associate = models => {
+    Module.hasMany(models.Delivery, {
+      as: 'deliveries',
+      foreignKey: 'module_id'
+    })
+  }
+
   return Module
 }
