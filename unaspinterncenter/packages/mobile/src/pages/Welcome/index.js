@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 
 import {
@@ -23,7 +24,7 @@ const Welcome = ({ navigation }) => {
         <ButtomNovo onPress={() => navigation.navigate('FindStudent')}>
           <ButtomText>Sou novo</ButtomText>
         </ButtomNovo>
-        <Text>Já tenho conta</Text>
+        <Text onPress={() => navigation.navigate('Login')}>Já tenho conta</Text>
       </Header>
     </Container>
   )

@@ -33,7 +33,7 @@ const Register = ({ navigation, loading, error, student }) => {
         <BackButtom handlePress={() => navigation.goBack()} />
         <Logo source={require('../../assets/unasp.png')} />
         <WelcomeText>
-          Ola {student.name}, digite seu email para continuarmos com seu
+          Ola {student && student.name}, digite seu email para continuarmos com seu
           cadastro
         </WelcomeText>
         <Progress level={1} />

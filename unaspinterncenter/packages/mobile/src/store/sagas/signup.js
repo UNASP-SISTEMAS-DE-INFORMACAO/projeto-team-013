@@ -33,6 +33,7 @@ export function* createStudent(action) {
     yield call(create, student)
     yield put(SignUpActions.signUpSuccess())
     alert('Usuario criado')
+    navigate('Login')
   } catch (error) {
     let errroMessage = 'Servidor inacessivel no momento'
     if (error.response) {

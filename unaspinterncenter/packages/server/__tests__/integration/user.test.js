@@ -1,7 +1,6 @@
 const request = require('supertest')
 const app = require('../../src/server')
 
-const { User } = require('../../src/app/models')
 const factory = require('../factories')
 
 const truncate = require('../utils/truncate')
@@ -39,16 +38,14 @@ describe('UserController', () => {
 
     const response = await request(app).post('/auth').send({
       email,
-      password: '897456213'
+      password: '8974562'
     })
 
     expect(response.status).toBe(401)
   })
 
   it('should not create a user with repeated email', async () => {
-    const user = await factory.create('User', {
-      email: 'carlos@outlook.com'
-    })
+    const user = await factory.create('User')
 
     const response = await request(app).post('/users').send({
       ra: user.ra,
@@ -86,5 +83,13 @@ describe('UserController', () => {
     })
 
     expect(response.status).toBe(400)
+  })
+
+  it('should return user informations', async () => {
+    const user = await factory.create('User')
+
+    const response = await request(app).get(`/users/${user.ra}`).send()
+
+    expect(response.status).toBe(200)
   })
 })
