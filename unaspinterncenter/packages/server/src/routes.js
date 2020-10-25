@@ -16,6 +16,7 @@ routes.get('/', (req, res) => {
 
 routes.post('/users', UserValidator.store, UserController.store)
 routes.get('/users/:ra', UserController.show)
+
 routes.post('/auth', UserValidator.login, UserController.login)
 
 routes.post('/modules', auth, ModuleValidator.store, ModuleController.store)
@@ -33,6 +34,13 @@ routes.post(
   auth,
   DeliveryValidator.store,
   DeliveryController.store
+)
+
+routes.get(
+  '/modules/:id/deliveries',
+  auth,
+  DeliveryValidator.index,
+  DeliveryController.index
 )
 
 module.exports = routes
