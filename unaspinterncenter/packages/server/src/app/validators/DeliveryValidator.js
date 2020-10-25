@@ -7,5 +7,8 @@ module.exports = {
       title: Joi.string().min(6).required(),
       description: Joi.string().min(6).required()
     })
+  }),
+  index: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({ id: Joi.number().required() })
   })
 }
