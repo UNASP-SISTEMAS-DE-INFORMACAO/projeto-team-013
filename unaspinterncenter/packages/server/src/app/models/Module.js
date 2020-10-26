@@ -1,3 +1,6 @@
+/* eslint-disable indent */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
 module.exports = function (sequelize, DataTypes) {
   const Module = sequelize.define('Module', {
     id: {
@@ -23,7 +26,11 @@ module.exports = function (sequelize, DataTypes) {
     Module.hasMany(models.Delivery, {
       as: 'deliveries',
       foreignKey: 'module_id'
-    })
+    }),
+      Module.hasMany(models.Attachment, {
+        as: 'attachments',
+        foreignKey: 'module_id'
+      })
   }
 
   return Module

@@ -1,10 +1,15 @@
 const express = require('express')
 const routes = express.Router()
+const multer = require('multer')
+const multerConfig = require('./config/multer')
+
+const upload = multer(multerConfig)
 const auth = require('./app/middleware/auth')
 
 const UserController = require('./app/controllers/UserController')
 const ModuleController = require('./app/controllers/ModuleController')
 const DeliveryController = require('./app/controllers/DeliveryController')
+const AttachmentController = require('./app/controllers/AttachmentController')
 
 const UserValidator = require('./app/validators/UserValidator')
 const ModuleValidator = require('./app/validators/ModuleValidator')
@@ -41,6 +46,13 @@ routes.get(
   auth,
   DeliveryValidator.index,
   DeliveryController.index
+)
+
+routes.post(
+  '/modules/:id/attachments',
+  auth,
+  upload.single('file'),
+  AttachmentController.store
 )
 
 module.exports = routes
