@@ -64,6 +64,33 @@ class ModuleController {
       return res.status(400).end()
     }
   }
+
+  async show(req, res) {
+    const { id } = req.params
+
+    try {
+      const module = await Module.findOne({
+        include: [
+          {
+            association: 'attachments',
+            attributes: ['id', 'title', 'description'],
+            include: [{ association: 'file', attributes: ['id', 'url'] }]
+          },
+          {
+            association: 'deliveries',
+            attributes: ['id', 'title', 'description']
+          }
+        ],
+        where: { id }
+      })
+
+      if (!module) return res.status(404).end()
+
+      return res.send(module)
+    } catch (error) {
+      return res.status(400).end()
+    }
+  }
 }
 
 module.exports = new ModuleController()

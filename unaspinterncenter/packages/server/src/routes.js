@@ -33,6 +33,7 @@ routes.put(
   ModuleValidator.update,
   ModuleController.update
 )
+routes.get('/modules/:id', auth, ModuleValidator.show, ModuleController.show)
 
 routes.post(
   '/modules/:id/deliveries',
