@@ -14,6 +14,7 @@ class ModuleController {
       })
       return res.status(201).send(module)
     } catch (error) {
+      console.log(error)
       return res.status(400).end()
     }
   }

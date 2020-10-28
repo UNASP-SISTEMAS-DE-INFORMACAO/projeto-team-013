@@ -8,6 +8,7 @@ import NotificationIconTab from '../components/NotificationIconTab'
 
 import Home from '../pages/Home'
 import Modules from '../pages/Modules'
+import ShowModule from '../pages/ShowModule'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -59,7 +60,7 @@ function TabRoutes() {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Home} />
       <Tab.Screen name="Notifications" component={Home} />
-      <Tab.Screen name="Modules" component={Modules} />
+      
     </Tab.Navigator>
   )
 }
@@ -81,6 +82,14 @@ export default function DashboardRoutes() {
         }}
         name="Modules"
         component={Modules}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false
+        }}
+        name="ShowModule"
+        component={ShowModule}
       />
     </Stack.Navigator>
   )
