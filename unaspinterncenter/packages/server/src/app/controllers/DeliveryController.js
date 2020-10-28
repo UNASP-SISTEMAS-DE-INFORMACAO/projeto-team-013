@@ -21,6 +21,17 @@ class DeliveryController {
       return res.status(400).end()
     }
   }
+
+  async index(req, res) {
+    const { id } = req.params
+    try {
+      if (!(await Module.findByPk(id))) return res.status(404).end()
+      const deliveries = await Delivery.findAll()
+      return res.send(deliveries)
+    } catch (error) {
+      return res.status(400).end()
+    }
+  }
 }
 
 module.exports = new DeliveryController()

@@ -14,6 +14,7 @@ class ModuleController {
       })
       return res.status(201).send(module)
     } catch (error) {
+      console.log(error)
       return res.status(400).end()
     }
   }
@@ -60,6 +61,33 @@ class ModuleController {
     try {
       await Module.update({ name, id_course, description }, { where: { id } })
       return res.status(204).end()
+    } catch (error) {
+      return res.status(400).end()
+    }
+  }
+
+  async show(req, res) {
+    const { id } = req.params
+
+    try {
+      const module = await Module.findOne({
+        include: [
+          {
+            association: 'attachments',
+            attributes: ['id', 'title', 'description'],
+            include: [{ association: 'file', attributes: ['id', 'url'] }]
+          },
+          {
+            association: 'deliveries',
+            attributes: ['id', 'title', 'description']
+          }
+        ],
+        where: { id }
+      })
+
+      if (!module) return res.status(404).end()
+
+      return res.send(module)
     } catch (error) {
       return res.status(400).end()
     }

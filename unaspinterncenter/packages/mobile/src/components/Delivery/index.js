@@ -11,20 +11,22 @@ import {
   Button
 } from './styles'
 
-const Module = ({ name, handlePress, id }) => {
+const Delivery = ({ title, description, handlePress, status }) => {
   const { colors } = useContext(ThemeContext)
 
   return (
-    <Container onPress={() => handlePress(id)}>
+    <Container onPress={() => handlePress()}>
       <DescriptionContainer>
-        <Name>{name}</Name>
-        <Description>{name}</Description>
+        <Name>{title}</Name>
+        <Description>{description}</Description>
       </DescriptionContainer>
       <Button>
-        <Icon size={26} color={colors.primary} name="folder" />
+        {status !== 'completed' ? null : (
+          <Icon size={26} color={colors.primary} name="done" />
+        )}
       </Button>
     </Container>
   )
 }
 
-export default Module
+export default Delivery

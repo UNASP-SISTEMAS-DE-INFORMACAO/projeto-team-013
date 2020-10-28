@@ -23,5 +23,10 @@ module.exports = {
       description: Joi.string().min(6),
       id_course: Joi.number()
     })
+  }),
+  show: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.number().min(1).required()
+    })
   })
 }
