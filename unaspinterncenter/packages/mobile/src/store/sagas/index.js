@@ -7,7 +7,7 @@ import { ModuleTypes } from '../ducks/module'
 import { findStudent, createStudent } from './signup'
 import { authenticate } from './auth'
 import { load } from './user'
-import { loadModule } from './module'
+import { loadModules, loadModule } from './module'
 
 export default function* rootSaga() {
   return yield all([
@@ -15,6 +15,7 @@ export default function* rootSaga() {
     takeLatest(SignUpTypes.SIGN_UP_REQUEST, createStudent),
     takeLatest(AuthTypes.AUTH_REQUEST, authenticate),
     takeLatest(AuthTypes.AUTH_SUCCESS, load),
+    takeLatest(ModuleTypes.LOAD_MODULES_REQUEST, loadModules),
     takeLatest(ModuleTypes.LOAD_MODULE_REQUEST, loadModule)
   ])
 }
