@@ -79,7 +79,13 @@ class ModuleController {
           },
           {
             association: 'deliveries',
-            attributes: ['id', 'title', 'description']
+            attributes: ['id', 'title', 'description'],
+            include: [
+              {
+                association: 'file_deliveries',
+                include: [{ association: 'file', attributes: ['id', 'url'] }]
+              }
+            ]
           }
         ],
         where: { id }

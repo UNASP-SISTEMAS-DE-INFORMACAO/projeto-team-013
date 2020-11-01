@@ -23,7 +23,14 @@ module.exports = function (sequelize, DataTypes) {
   )
 
   Delivery.associate = models => {
-    Delivery.belongsTo(models.Module, { foreignKey: 'module_id', as: 'module' })
+    Delivery.belongsTo(models.Module, {
+      foreignKey: 'module_id',
+      as: 'module'
+    }),
+    Delivery.hasMany(models.FileDelivery, {
+      as: 'file_deliveries',
+      foreignKey: 'delivery_id'
+    })
   }
   return Delivery
 }
