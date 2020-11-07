@@ -42,7 +42,7 @@ const ShowModule = ({
   navigation,
   route
 }) => {
-  const { colors, metrics } = useContext(ThemeContext)
+  const { colors } = useContext(ThemeContext)
   const { module_id } = route.params
 
   useEffect(() => {
@@ -56,8 +56,9 @@ const ShowModule = ({
     }
   }
 
-  const handleDeliveryPress = () => {
+  const handleDeliveryPress = delivery => {
     alert('Not implemented yet')
+    console.log(delivery)
   }
 
   const [loading, setLoading] = useState(true)
@@ -92,31 +93,33 @@ const ShowModule = ({
         {loading ? (
           <BaseComponentLoading loading={loading} />
         ) : (
-          attachments.map(attachment => (
-            <Attachment
-              key={attachment.id}
-              title={attachment.title}
-              description={attachment.description}
-              handlePress={() => handleAttachmentPress(attachment)}
-            />
-          ))
-        )}
+            attachments.map(attachment => (
+              <Attachment
+                key={attachment.id}
+                title={attachment.title}
+                description={attachment.description}
+                handlePress={() => handleAttachmentPress(attachment)}
+              />
+            ))
+          )}
       </SimpleContainer>
       <SimpleContainer>
         <ModuleTitle>Entregas</ModuleTitle>
         {loading ? (
           <BaseComponentLoading loading={loading} />
         ) : (
-          deliveries.map(delivery => (
-            <Delivery
-              key={delivery.id}
-              title={delivery.title}
-              description={delivery.description}
-              status={'completed'}
-              handlePress={handleDeliveryPress}
-            />
-          ))
-        )}
+            deliveries.map(delivery => (
+              <Delivery
+                key={delivery.id}
+                title={delivery.title}
+                description={delivery.description}
+                status={delivery.file_deliveries.find(
+                  file_delivery => file_delivery.status === 'approved'
+                )}
+                handlePress={() => handleDeliveryPress(delivery)}
+              />
+            ))
+          )}
       </SimpleContainer>
     </Container>
   )
