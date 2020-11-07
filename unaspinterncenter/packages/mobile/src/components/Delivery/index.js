@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ThemeContext } from 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -21,9 +21,7 @@ const Delivery = ({ title, description, handlePress, status }) => {
         <Description>{description}</Description>
       </DescriptionContainer>
       <Button>
-        {status !== 'completed' ? null : (
-          <Icon size={26} color={colors.primary} name="done" />
-        )}
+        {status ? <Icon size={26} color={colors.primary} name="done" /> : null}
       </Button>
     </Container>
   )
