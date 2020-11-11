@@ -10,11 +10,12 @@ import Home from '../pages/Home'
 import Modules from '../pages/Modules'
 import ShowModule from '../pages/ShowModule'
 import Profile from '../pages/Profile'
+import Notification from '../pages/Notification'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
-function TabRoutes () {
+function TabRoutes() {
   const icons = {
     Home: {
       name: 'home'
@@ -60,12 +61,12 @@ function TabRoutes () {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Notifications" component={Home} />
+      <Tab.Screen name="Notifications" component={Notification} />
     </Tab.Navigator>
   )
 }
 
-export default function DashboardRoutes () {
+export default function DashboardRoutes() {
   return (
     <Stack.Navigator>
       <Stack.Screen
