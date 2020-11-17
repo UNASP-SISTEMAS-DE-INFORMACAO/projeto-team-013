@@ -2,11 +2,11 @@ import axios from 'axios'
 import { getToken } from '../utils/user'
 
 export const apiunasp = axios.create({
-  baseURL: 'http://206.189.170.75:3001'
+  baseURL: 'http://carloshenr1que.ddns.net:2999'
 })
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.29:3000'
+  baseURL: 'http://192.168.15.72:3000'
 })
 
 api.interceptors.request.use(async config => {
