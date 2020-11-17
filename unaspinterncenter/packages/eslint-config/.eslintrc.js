@@ -13,7 +13,10 @@ module.exports = {
   ],
   plugins: ['react', 'prettier'],
   rules: {
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    'react/prop-types': 'off',
+    'space-before-function-paren': 'off',
+    camelcase: 'off'
   },
   settings: {
     'import/resolver': {

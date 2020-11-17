@@ -11,6 +11,7 @@ import Modules from '../pages/Modules'
 import ShowModule from '../pages/ShowModule'
 import Profile from '../pages/Profile'
 import Notification from '../pages/Notification'
+import FileDelivery from '../pages/FileDelivery'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -91,6 +92,14 @@ export default function DashboardRoutes() {
         }}
         name="ShowModule"
         component={ShowModule}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false
+        }}
+        name="FileDelivery"
+        component={FileDelivery}
       />
     </Stack.Navigator>
   )
