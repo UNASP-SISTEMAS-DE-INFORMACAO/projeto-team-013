@@ -1,7 +1,7 @@
 const { Module } = require('../models')
 
 class ModuleController {
-  async store(req, res) {
+  async store (req, res) {
     const { name, id_course, description } = req.body
 
     if (!req.admin) return res.status(401).send()
@@ -19,7 +19,7 @@ class ModuleController {
     }
   }
 
-  async index(req, res) {
+  async index (req, res) {
     const filters = {}
 
     if (req.query.course) {
@@ -34,7 +34,7 @@ class ModuleController {
     }
   }
 
-  async exclude(req, res) {
+  async exclude (req, res) {
     const { id } = req.params
     if (!req.admin) return res.status(401).send()
 
@@ -49,7 +49,7 @@ class ModuleController {
     }
   }
 
-  async update(req, res) {
+  async update (req, res) {
     const { id } = req.params
 
     const module = await Module.findByPk(id)
@@ -66,7 +66,7 @@ class ModuleController {
     }
   }
 
-  async show(req, res) {
+  async show (req, res) {
     const { id } = req.params
 
     try {
@@ -79,7 +79,15 @@ class ModuleController {
           },
           {
             association: 'deliveries',
-            attributes: ['id', 'title', 'description']
+            attributes: ['id', 'title', 'description'],
+            include: [
+              {
+                association: 'file_deliveries',
+                include: [
+                  { association: 'file', attributes: ['id', 'url', 'key'] }
+                ]
+              }
+            ]
           }
         ],
         where: { id }

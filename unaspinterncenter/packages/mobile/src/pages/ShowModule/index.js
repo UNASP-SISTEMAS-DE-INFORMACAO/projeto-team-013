@@ -5,10 +5,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { ThemeContext } from 'styled-components'
 
-import * as MediaLibrary from 'expo-media-library'
-import * as FileSystem from 'expo-file-system'
-import * as Permissions from 'expo-permissions'
-import * as Linking from 'expo-linking'
 import * as WebBrowser from 'expo-web-browser'
 
 import Attachment from '../../components/Attachment'
@@ -33,16 +29,19 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import ModuleActions from '../../store/ducks/module'
+import FileActions from '../../store/ducks/file'
 
 const ShowModule = ({
   loadModuleRequest,
+  setDelivery,
+  setFileDeliveries,
   module,
   attachments,
   deliveries,
   navigation,
   route
 }) => {
-  const { colors, metrics } = useContext(ThemeContext)
+  const { colors } = useContext(ThemeContext)
   const { module_id } = route.params
 
   useEffect(() => {
@@ -56,8 +55,11 @@ const ShowModule = ({
     }
   }
 
-  const handleDeliveryPress = () => {
-    alert('Not implemented yet')
+  const handleDeliveryPress = delivery => {
+    const { file_deliveries } = delivery
+    setDelivery(delivery)
+    setFileDeliveries(file_deliveries)
+    navigation.navigate('FileDelivery')
   }
 
   const [loading, setLoading] = useState(true)
@@ -112,8 +114,10 @@ const ShowModule = ({
               key={delivery.id}
               title={delivery.title}
               description={delivery.description}
-              status={'completed'}
-              handlePress={handleDeliveryPress}
+              status={delivery.file_deliveries.find(
+                file_delivery => file_delivery.status === 'approved'
+              )}
+              handlePress={() => handleDeliveryPress(delivery)}
             />
           ))
         )}
@@ -130,6 +134,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(ModuleActions, dispatch)
+  bindActionCreators({ ...FileActions, ...ModuleActions }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowModule)
