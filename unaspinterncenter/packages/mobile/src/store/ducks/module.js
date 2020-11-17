@@ -7,13 +7,15 @@ const { Types, Creators } = createActions({
   loadModulesFailure: ['error'],
   loadModuleRequest: ['module_id'],
   loadModuleSuccess: ['module'],
-  loadModuleFailure: ['error']
+  loadModuleFailure: ['error'],
+  setDelivery: ['delivery']
 })
 
 export const ModuleTypes = Types
 export default Creators
 
 export const INITIAL_STATE = Immutable({
+  delivery: null,
   module: null,
   modules: [],
   error: null,
@@ -59,5 +61,11 @@ export const reducer = createReducer(INITIAL_STATE, {
     state.merge({
       error: action.error,
       loading: false
+    }),
+
+  [Types.SET_DELIVERY]: (state, action) => {
+    return state.merge({
+      delivery: action.delivery
     })
+  }
 })
