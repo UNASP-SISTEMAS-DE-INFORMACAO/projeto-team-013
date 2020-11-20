@@ -116,7 +116,7 @@ const FileDelivery = ({
       <SimpleList
         snapToInterval={metrics.screenWidth}
         decelerationRate="fast"
-        ListEmptyComponent={() => (
+        ListFooterComponent={() => (
           <Content>
             <EmptyListContainer>
               <ContentTitle>Nenhum arquivo adicionado</ContentTitle>
@@ -129,7 +129,7 @@ const FileDelivery = ({
         horizontal={true}
         data={file_deliveries}
         scrollEventThrottle={16}
-        keyExtractor={item => item.toString()}
+        keyExtractor={item => item.id.toString()}
         contentContainerStyle={[
           { flexGrow: 1 },
           file_deliveries.length ? null : { justifyContent: 'center' }
