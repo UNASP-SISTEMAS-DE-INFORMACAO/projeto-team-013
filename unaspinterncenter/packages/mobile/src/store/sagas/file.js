@@ -9,7 +9,7 @@ export function* sendFileDelviery(action) {
   const delivery_id = yield select(state => state.module.delivery.id)
   try {
     const file_delivery = yield call(store, file, module_id, delivery_id)
-    yield put(FileActions.sendFileDeliverySuccess())
+    yield put(FileActions.sendFileDeliverySuccess(file_delivery))
   } catch (error) {
     console.log(error)
     yield put(FileActions.sendFileDeliveryFailure())

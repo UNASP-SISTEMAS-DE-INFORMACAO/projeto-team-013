@@ -26,7 +26,9 @@ class FileDeliveryController {
         user_id
       })
 
-      return res.status(201).send(file_delivery)
+      file_delivery.file = file
+
+      return res.status(201).send({ ...file_delivery.dataValues, file })
     } catch (error) {
       return res.status(400).end()
     }

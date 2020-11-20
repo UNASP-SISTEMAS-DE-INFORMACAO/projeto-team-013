@@ -38,6 +38,7 @@ const ShowModule = ({
   module,
   attachments,
   deliveries,
+  file_deliveries,
   navigation,
   route
 }) => {
@@ -48,10 +49,14 @@ const ShowModule = ({
     loadModuleRequest(module_id)
   }, [])
 
+  useEffect(() => {
+    loadModuleRequest(module_id)
+  }, [file_deliveries])
+
   const handleAttachmentPress = async attachment => {
     const { url } = attachment.file
     if (url) {
-      WebBrowser.openBrowserAsync(url)
+      await WebBrowser.openBrowserAsync(url)
     }
   }
 
@@ -94,33 +99,33 @@ const ShowModule = ({
         {loading ? (
           <BaseComponentLoading loading={loading} />
         ) : (
-          attachments.map(attachment => (
-            <Attachment
-              key={attachment.id}
-              title={attachment.title}
-              description={attachment.description}
-              handlePress={() => handleAttachmentPress(attachment)}
-            />
-          ))
-        )}
+            attachments.map(attachment => (
+              <Attachment
+                key={attachment.id}
+                title={attachment.title}
+                description={attachment.description}
+                handlePress={() => handleAttachmentPress(attachment)}
+              />
+            ))
+          )}
       </SimpleContainer>
       <SimpleContainer>
         <ModuleTitle>Entregas</ModuleTitle>
         {loading ? (
           <BaseComponentLoading loading={loading} />
         ) : (
-          deliveries.map(delivery => (
-            <Delivery
-              key={delivery.id}
-              title={delivery.title}
-              description={delivery.description}
-              status={delivery.file_deliveries.find(
-                file_delivery => file_delivery.status === 'approved'
-              )}
-              handlePress={() => handleDeliveryPress(delivery)}
-            />
-          ))
-        )}
+            deliveries.map(delivery => (
+              <Delivery
+                key={delivery.id}
+                title={delivery.title}
+                description={delivery.description}
+                status={delivery.file_deliveries.find(
+                  file_delivery => file_delivery.status === 'approved'
+                )}
+                handlePress={() => handleDeliveryPress(delivery)}
+              />
+            ))
+          )}
       </SimpleContainer>
     </Container>
   )
@@ -130,7 +135,8 @@ const mapStateToProps = state => ({
   loading: state.module.loading,
   module: state.module.module,
   attachments: state.module.module ? state.module.module.attachments : [],
-  deliveries: state.module.module ? state.module.module.deliveries : []
+  deliveries: state.module.module ? state.module.module.deliveries : [],
+  file_deliveries: state.file.file_deliveries
 })
 
 const mapDispatchToProps = dispatch =>
