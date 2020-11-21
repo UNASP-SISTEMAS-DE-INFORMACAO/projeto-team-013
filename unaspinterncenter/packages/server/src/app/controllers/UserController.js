@@ -4,6 +4,19 @@ const { Op } = require('sequelize')
 const { User } = require('../models')
 
 class UserController {
+  async index(req, res) {
+    const filters = req.query
+    try {
+      const users = await User.findAll({
+        where: { is_admin: false, ...filters }
+      })
+      return res.status(200).send(users)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).send(error)
+    }
+  }
+
   async store(req, res) {
     const { email, ra } = req.body
     if (
