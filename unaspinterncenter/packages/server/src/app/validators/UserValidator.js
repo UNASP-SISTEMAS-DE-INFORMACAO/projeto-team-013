@@ -17,5 +17,13 @@ module.exports = {
       email: Joi.string().email().required(),
       password: Joi.string().required()
     })
+  }),
+  index: celebrate({
+    [Segments.QUERY]: Joi.object().keys({ id_course: Joi.number() })
+  }),
+  show: celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      id: Joi.number().required()
+    })
   })
 }
