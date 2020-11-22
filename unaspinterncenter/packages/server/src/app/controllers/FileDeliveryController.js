@@ -33,6 +33,22 @@ class FileDeliveryController {
       return res.status(400).end()
     }
   }
+
+  async updateStatus(req, res) {
+    const { id, delivery_id, file_delivery_id } = req.params
+    const { status } = req.body
+    const is_admin = req.admin
+    if (!is_admin) return res.status(401).send()
+
+    try {
+      if (!(await Module.findByPk(id))) return res.status(404).end()
+      if (!(await Delivery.findByPk(delivery_id))) return res.status(404).end()
+      await FileDelivery.update({ status }, { where: { id: file_delivery_id } })
+      return res.status(204).end()
+    } catch (error) {
+      return res.status(500).send(error)
+    }
+  }
 }
 
 module.exports = new FileDeliveryController()
