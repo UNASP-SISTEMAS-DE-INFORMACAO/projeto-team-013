@@ -1,5 +1,11 @@
 /* eslint-disable camelcase */
-const { FileDelivery, Delivery, Module, File } = require('../models')
+const {
+  FileDelivery,
+  Delivery,
+  Module,
+  File,
+  Notification
+} = require('../models')
 
 class FileDeliveryController {
   async store(req, res) {
@@ -42,8 +48,21 @@ class FileDeliveryController {
 
     try {
       if (!(await Module.findByPk(id))) return res.status(404).end()
-      if (!(await Delivery.findByPk(delivery_id))) return res.status(404).end()
+      const delivery = await Delivery.findByPk(delivery_id)
+      if (!delivery) return res.status(404).end()
       await FileDelivery.update({ status }, { where: { id: file_delivery_id } })
+
+      const notification = await Notification.create({
+        title: delivery.title,
+        description: `O status do seu envio foi modificado para ${status}`,
+        notifier_id: req.ra
+      })
+
+      const ownerSocket = req.connectedUsers[req.ra]
+
+      if (ownerSocket) {
+        req.io.to(ownerSocket).emit('notification', notification)
+      }
       return res.status(204).end()
     } catch (error) {
       return res.status(500).send(error)
