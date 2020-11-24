@@ -22,7 +22,7 @@ module.exports = {
     [Segments.QUERY]: Joi.object().keys({ id_course: Joi.number() })
   }),
   show: celebrate({
-    [Segments.BODY]: Joi.object().keys({
+    [Segments.PARAMS]: Joi.object().keys({
       id: Joi.number().required()
     })
   })
