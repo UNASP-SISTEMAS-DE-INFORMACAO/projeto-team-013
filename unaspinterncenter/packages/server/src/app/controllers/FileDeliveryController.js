@@ -52,11 +52,17 @@ class FileDeliveryController {
       if (!delivery) return res.status(404).end()
       await FileDelivery.update({ status }, { where: { id: file_delivery_id } })
 
-      await Notification.create({
+      const notification = await Notification.create({
         title: delivery.title,
         description: `O status do seu envio foi modificado para ${status}`,
         notifier_id: req.ra
       })
+
+      const ownerSocket = req.connectedUsers[req.ra]
+
+      if (ownerSocket) {
+        req.io.to(ownerSocket).emit('notification', notification)
+      }
       return res.status(204).end()
     } catch (error) {
       return res.status(500).send(error)
