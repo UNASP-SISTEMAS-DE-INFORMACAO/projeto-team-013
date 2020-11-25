@@ -23,7 +23,7 @@ module.exports = {
   }),
   show: celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-      id: Joi.number().required()
+      ra: Joi.number().required()
     })
   })
 }
