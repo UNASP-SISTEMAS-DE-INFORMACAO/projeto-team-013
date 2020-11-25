@@ -1,5 +1,11 @@
 /* eslint-disable camelcase */
-const { FileDelivery, Delivery, Module, File } = require('../models')
+const {
+  FileDelivery,
+  Delivery,
+  Module,
+  File,
+  Notification
+} = require('../models')
 
 class FileDeliveryController {
   async store(req, res) {
@@ -26,9 +32,40 @@ class FileDeliveryController {
         user_id
       })
 
-      return res.status(201).send(file_delivery)
+      file_delivery.file = file
+
+      return res.status(201).send({ ...file_delivery.dataValues, file })
     } catch (error) {
       return res.status(400).end()
+    }
+  }
+
+  async updateStatus(req, res) {
+    const { id, delivery_id, file_delivery_id } = req.params
+    const { status } = req.body
+    const is_admin = req.admin
+    if (!is_admin) return res.status(401).send()
+
+    try {
+      if (!(await Module.findByPk(id))) return res.status(404).end()
+      const delivery = await Delivery.findByPk(delivery_id)
+      if (!delivery) return res.status(404).end()
+      await FileDelivery.update({ status }, { where: { id: file_delivery_id } })
+
+      const notification = await Notification.create({
+        title: delivery.title,
+        description: `O status do seu envio foi modificado para ${status}`,
+        notifier_id: req.ra
+      })
+
+      const ownerSocket = req.connectedUsers[req.ra]
+
+      if (ownerSocket) {
+        req.io.to(ownerSocket).emit('notification', notification)
+      }
+      return res.status(204).end()
+    } catch (error) {
+      return res.status(500).send(error)
     }
   }
 }
