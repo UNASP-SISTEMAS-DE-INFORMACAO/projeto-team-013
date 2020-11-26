@@ -8,22 +8,6 @@ const {
 } = require('../models')
 
 class FileDeliveryController {
-  async index(req, res) {
-    const { delivery_id } = req.params
-    const filters = req.query
-    try {
-      const file_deliveries = await FileDelivery.findAll({
-        where: {
-          delivery_id,
-          ...filters
-        }
-      })
-      return res.status(200).send(file_deliveries)
-    } catch (error) {
-      return res.satus(500).send(error)
-    }
-  }
-
   async store(req, res) {
     const { id, delivery_id } = req.params
     const { ra: user_id } = req
