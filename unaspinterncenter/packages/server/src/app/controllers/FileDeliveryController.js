@@ -1,10 +1,10 @@
-/* eslint-disable camelcase */
 const {
   FileDelivery,
   Delivery,
   Module,
   File,
-  Notification
+  Notification,
+  sequelize
 } = require('../models')
 
 class FileDeliveryController {
@@ -61,26 +61,69 @@ class FileDeliveryController {
     const { status } = req.body
     const is_admin = req.admin
     if (!is_admin) return res.status(401).send()
+    const transaction = await sequelize.transaction()
 
     try {
       if (!(await Module.findByPk(id))) return res.status(404).end()
       const delivery = await Delivery.findByPk(delivery_id)
       if (!delivery) return res.status(404).end()
-      await FileDelivery.update({ status }, { where: { id: file_delivery_id } })
 
-      const notification = await Notification.create({
-        title: delivery.title,
-        description: `O status do seu envio foi modificado para ${status}`,
-        notifier_id: req.ra
-      })
+      await FileDelivery.update(
+        { status },
+        { where: { id: file_delivery_id } },
+        { transaction }
+      )
+
+      const notification = await Notification.create(
+        {
+          title: delivery.title,
+          description: `O status do seu envio foi modificado para ${status}`,
+          notifier_id: req.ra
+        },
+        { transaction }
+      )
 
       const ownerSocket = req.connectedUsers[req.ra]
 
       if (ownerSocket) {
         req.io.to(ownerSocket).emit('notification', notification)
       }
+      await transaction.commit()
       return res.status(204).end()
     } catch (error) {
+      await transaction.rollback()
+      return res.status(500).send(error)
+    }
+  }
+
+  async update(req, res) {
+    const { id, delivery_id, file_delivery_id } = req.params
+    const { orginalname: name, size, key, location: url = '' } = req.file
+
+    const transaction = await sequelize.transaction()
+
+    try {
+      if (!(await Module.findByPk(id))) return res.status(404).end()
+      const delivery = await Delivery.findByPk(delivery_id)
+      if (!delivery) return res.status(404).end()
+      const file_delivery = await FileDelivery.findByPk(file_delivery_id)
+
+      await FileDelivery.update(
+        { status: 'sent' },
+        { where: { id: file_delivery_id } },
+        { transaction }
+      )
+      await File.update(
+        { name, size, key, url },
+        { where: { id: file_delivery.file_id } },
+        { transaction }
+      )
+
+      await transaction.commit()
+
+      return res.status(204).end()
+    } catch (error) {
+      await transaction.rollback()
       return res.status(500).send(error)
     }
   }

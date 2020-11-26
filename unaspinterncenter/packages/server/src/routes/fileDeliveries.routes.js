@@ -27,4 +27,10 @@ fileDeliveriesRouter.get(
   FileDeliveryController.index
 )
 
+fileDeliveriesRouter.put(
+  '/:file_delivery_id',
+  FileDeliveryValidator.update,
+  upload.single('file'),
+  FileDeliveryController.update
+)
 module.exports = fileDeliveriesRouter
