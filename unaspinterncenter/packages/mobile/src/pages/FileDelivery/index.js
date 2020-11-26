@@ -9,6 +9,7 @@ import * as Permissions from 'expo-permissions'
 
 import File from '../../components/File'
 import ModalLoading from '../../components/ModalLoading'
+import Progress from '../../components/ProgressWithStep'
 
 import {
   Container,
@@ -103,6 +104,8 @@ const FileDelivery = ({
     return result
   }
 
+  console.log(file_deliveries)
+
   return (
     <Container>
       <ModalLoading visible={loading} />
@@ -143,6 +146,7 @@ const FileDelivery = ({
               filename={item.file.key}
               updated_at={item.updatedAt}
             />
+            <Progress currentStep={item.status} />
           </Content>
         )}
       />
