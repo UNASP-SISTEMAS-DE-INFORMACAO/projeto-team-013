@@ -1,6 +1,5 @@
 import React from 'react'
-
-// import Icon from 'react-native-vector-icons/MaterialIcons'
+import { parseISO, format } from 'date-fns'
 import {
   Container,
   BackgroundHeader,
@@ -11,63 +10,12 @@ import {
   MessageNotification,
   NotificationText,
   DateNotification,
-  NotificationList
+  NotificationsContainer
 } from './styles'
 
-Lista = {
-  notificacoes: [
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/12/2020',
-      id: 1
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 2
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    }
-  ]
-}
+import { connect } from 'react-redux'
 
-const Notification = ({ navigation }) => {
+const Notification = ({ notifications }) => {
   return (
     <Container>
       <BackgroundHeader />
@@ -75,16 +23,28 @@ const Notification = ({ navigation }) => {
         <User>Alexsander Genuino</User>
         <NotificationHeader> Notificações</NotificationHeader>
       </Header>
-      <NotificationList>
-        {this.Lista.notificacoes.map((item, index) => (
+      <NotificationsContainer>
+        {notifications.map(item => (
           <MessageNotification key={item.id}>
-            <NotificationTittle>{item.Titulo}</NotificationTittle>
-            <NotificationText>{item.Texto}</NotificationText>
-            <DateNotification>{item.Data}</DateNotification>
+            <NotificationTittle>{item.title}</NotificationTittle>
+            <NotificationText>{item.description}</NotificationText>
+            <DateNotification>
+              {format(
+                parseISO(item.createdAt),
+                "'Dia' dd 'de' MMMM', às ' HH:mm'h'"
+              )}
+            </DateNotification>
           </MessageNotification>
         ))}
-      </NotificationList>
+      </NotificationsContainer>
     </Container>
   )
 }
-export default Notification
+
+const mapStateToProps = state => ({
+  loading: state.notifications.loading,
+  error: state.notifications.error,
+  notifications: state.notifications.notifications
+})
+
+export default connect(mapStateToProps, null)(Notification)

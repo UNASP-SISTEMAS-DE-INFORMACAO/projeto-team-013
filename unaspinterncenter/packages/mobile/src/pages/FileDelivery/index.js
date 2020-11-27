@@ -104,8 +104,6 @@ const FileDelivery = ({
     return result
   }
 
-  console.log(file_deliveries)
-
   return (
     <Container>
       <ModalLoading visible={loading} />
