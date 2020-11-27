@@ -1,8 +1,12 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    alignItems: 'center',
+    paddingBottom: 20
+  }
+})`
   background: ${props => props.theme.colors.white};
-  flex: 1;
 `
 export const BackgroundHeader = styled.View`
   position: absolute;
@@ -31,11 +35,19 @@ export const NotificationHeader = styled.Text`
   font-weight: bold;
 `
 
-export const MessageNotification = styled.View`
-  align-items: flex-start;
+export const NotificationsContainer = styled.View`
   background: ${props => props.theme.colors.white};
-  margin-top: 21px;
-  margin-left: 9px;
+  width: ${props => props.theme.metrics.screenWidth - 32}px;
+  min-height: 300px;
+  padding-left: 10px;
+  border-radius: 6px;
+  border-width: 1px;
+  border-color: #dedede;
+  margin-top: ${props => props.theme.metrics.baseMargin}px;
+`
+
+export const MessageNotification = styled.View`
+  margin-top: 20px;
   margin-right: 10px;
   border-bottom-width: 0.5px;
   border-bottom-color: black;
@@ -48,7 +60,6 @@ export const NotificationTittle = styled.Text`
   color: ${props => props.theme.colors.primary};
 `
 export const NotificationText = styled.Text`
-  font-weight: normal;
   font-size: 12px;
   color: ${props => props.theme.colors.primary};
   padding-left: 5px;
@@ -62,12 +73,4 @@ export const DateNotification = styled.Text`
   margin-top: 30px;
   margin-right: 5px;
   color: ${props => props.theme.colors.primary};
-`
-export const NotificationList = styled.ScrollView`
-  border-radius: 6px;
-  width: 90%;
-  height: 100%;
-  background: ${props => props.theme.colors.white};
-  margin-top: 25px;
-  left: 16px;
 `

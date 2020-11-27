@@ -20,7 +20,7 @@ import {
 import { connect } from 'react-redux'
 
 const Home = ({ navigation, username, loading }) => {
-  const { colors } = useContext(ThemeContext)
+  const { colors, metrics } = useContext(ThemeContext)
   const teste = [0, 1, 2, 3]
 
   const menuNavigate = title => {
@@ -42,6 +42,8 @@ const Home = ({ navigation, username, loading }) => {
       <Title>Novidades</Title>
 
       <SimpleList
+        snapToInterval={metrics.screenWidth}
+        decelerationRate="fast"
         horizontal={true}
         data={teste}
         scrollEventThrottle={16}
