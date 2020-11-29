@@ -70,7 +70,8 @@ class UserController {
         return res.status(401).end()
       }
     } catch (error) {
-      return res.status(400).end()
+      console.log(error)
+      return res.status(400).send(error).end()
     }
   }
 }
