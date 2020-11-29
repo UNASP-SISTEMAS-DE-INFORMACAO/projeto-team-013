@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import { parseISO, format } from 'date-fns'
 import {
   Container,
@@ -14,8 +15,31 @@ import {
 } from './styles'
 
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const Notification = ({ notifications }) => {
+import NotificationsActions from '../../store/ducks/notifications'
+
+const Notification = ({ notifications, setNotificationsSeenRequest }) => {
+  useFocusEffect(
+    useCallback(() => {
+      setNotificationSeen()
+    })
+  )
+
+  function setNotificationSeen() {
+    const unReadNotifications = []
+    notifications.map(notification => {
+      if (notification.seen == false) {
+        unReadNotifications.push({
+          id: notification.id
+        })
+      }
+    })
+    if (unReadNotifications.length > 0) {
+      return setNotificationsSeenRequest(unReadNotifications)
+    }
+  }
+
   return (
     <Container>
       <BackgroundHeader />
@@ -47,4 +71,7 @@ const mapStateToProps = state => ({
   notifications: state.notifications.notifications
 })
 
-export default connect(mapStateToProps, null)(Notification)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(NotificationsActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notification)

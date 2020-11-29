@@ -1,6 +1,4 @@
 import React from 'react'
-// import { ProgressSteps, ProgressStep } from 'react-native-progress-steps'
-
 import { Container, Step, StepContainer, Line, Text } from './styles'
 
 const steps = [

@@ -5,7 +5,10 @@ const { Types, Creators } = createActions({
   loadNotificationsRequest: [],
   loadNotificationsSuccess: ['notifications'],
   loadNotificationsFailure: ['error'],
-  addNotification: ['notification']
+  addNotification: ['notification'],
+  setNotificationsSeenRequest: ['notifications'],
+  setNotificationsSeenSuccess: ['notifications'],
+  setNotificationsSeenFailure: ['error']
 })
 
 export const NotificationTypes = Types
@@ -42,5 +45,25 @@ export const reducer = createReducer(INITIAL_STATE, {
     return state.merge({
       notifications: [...state.notifications, action.notification]
     })
-  }
+  },
+
+  [Types.SET_NOTIFICATIONS_SEEN_REQUEST]: (state, action) =>
+    state.merge({
+      error: null,
+      loading: false
+    }),
+
+  [Types.SET_NOTIFICATIONS_SEEN_SUCCESS]: (state, action) => {
+    return state.merge({
+      error: false,
+      loading: false,
+      notifications: action.notifications
+    })
+  },
+
+  [Types.SET_NOTIFICATIONS_SEEN_FAILURE]: (state, action) =>
+    state.merge({
+      error: null,
+      loading: false
+    })
 })

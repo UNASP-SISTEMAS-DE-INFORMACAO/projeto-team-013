@@ -25,7 +25,7 @@ export const Step = styled.View`
 `
 
 export const Text = styled.Text`
-  font-size: 10;
+  font-size: 10px;
   color: #0e395e;
 `
 

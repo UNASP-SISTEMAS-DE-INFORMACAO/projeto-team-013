@@ -5,7 +5,10 @@ const { Types, Creators } = createActions({
   authRequest: ['email', 'password'],
   authSuccess: ['ra'],
   authFailure: ['error'],
-  isAuthenticated: []
+  isAuthenticated: [],
+  signOutRequest: [],
+  signOutSuccess: ['error'],
+  signOutFailure: []
 })
 
 export const AuthTypes = Types
@@ -15,7 +18,8 @@ export const INITIAL_STATE = Immutable({
   ra: null,
   authenticated: false,
   error: null,
-  loading: false
+  loading: false,
+  appLoading: true
 })
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -31,7 +35,8 @@ export const reducer = createReducer(INITIAL_STATE, {
       ra: action.ra,
       authenticated: true,
       error: false,
-      loading: false
+      loading: false,
+      appLoading: false
     })
   },
 
@@ -39,10 +44,27 @@ export const reducer = createReducer(INITIAL_STATE, {
     state.merge({
       authenticated: false,
       error: action.error,
-      loading: false
+      loading: false,
+      appLoading: false
     }),
 
   [Types.IS_AUTHENTICATED]: (state, action) =>
+    state.merge({
+      error: null
+    }),
+
+  [Types.SIGN_OUT_REQUEST]: (state, action) =>
+    state.merge({
+      error: null
+    }),
+
+  [Types.SIGN_OUT_SUCCESS]: (state, action) =>
+    state.merge({
+      authenticated: false,
+      error: action.error
+    }),
+
+  [Types.SIGN_OUT_FAILURE]: (state, action) =>
     state.merge({
       error: null
     })

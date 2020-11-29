@@ -107,21 +107,14 @@ class FileDeliveryController {
       const delivery = await Delivery.findByPk(delivery_id)
       if (!delivery) return res.status(404).end()
       const file_delivery = await FileDelivery.findByPk(file_delivery_id)
+      const file = await File.findByPk(file_delivery.file_id)
 
-      await FileDelivery.update(
-        { status: 'sent' },
-        { where: { id: file_delivery_id } },
-        { transaction }
-      )
-      await File.update(
-        { name, size, key, url },
-        { where: { id: file_delivery.file_id } },
-        { transaction }
-      )
+      await file_delivery.update({ status: 'sent' }, { transaction })
+      await file.update({ name, size, key, url }, { transaction })
 
       await transaction.commit()
 
-      return res.status(204).end()
+      return res.status(200).send({ ...file_delivery.dataValues, file })
     } catch (error) {
       await transaction.rollback()
       return res.status(500).send(error)

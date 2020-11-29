@@ -6,13 +6,21 @@ import { ThemeContext } from 'styled-components'
 
 import { Container, Text, Content, Description, Button } from './styles'
 
-const File = ({ filename, updated_at, handleUpdate, id }) => {
+const File = ({
+  filename,
+  updated_at,
+  handleUpdate,
+  file_delivery_id,
+  handleFilePress
+}) => {
   const { colors } = useContext(ThemeContext)
 
   return (
     <Container>
       <Content>
-        <Icon name="attach-file" size={72} color={colors.primary} />
+        <Button onPress={() => handleFilePress()}>
+          <Icon name="attach-file" size={72} color={colors.primary} />
+        </Button>
         <Description>
           <Text>{filename.substring(0, 32 - 3) + '...'}</Text>
           <Text>
@@ -20,7 +28,7 @@ const File = ({ filename, updated_at, handleUpdate, id }) => {
           </Text>
         </Description>
       </Content>
-      <Button onPress={() => handleUpdate(id)}>
+      <Button onPress={() => handleUpdate(file_delivery_id)}>
         <Icon name="edit" size={22} color={colors.primary} />
       </Button>
     </Container>

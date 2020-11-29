@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useEffect } from 'react'
+import React, { useContext, useMemo, useEffect, useState } from 'react'
 import socketio from 'socket.io-client'
 import { TouchableWithoutFeedback } from 'react-native'
 import { ThemeContext } from 'styled-components'
@@ -34,18 +34,23 @@ const NotificationIconTab = ({
     })
   }, [socket])
 
-  const unreadCount = useMemo(
-    () => notifications.map(notification => notification.seen === false),
-    [notifications]
-  )
+  const [unreadCount, setUnreadCount] = useState()
+
+  useEffect(() => {
+    var count = 0
+    notifications.map(notification => {
+      if (notification.seen == false) {
+        count++
+      }
+    })
+    setUnreadCount(count)
+  }, [notifications])
 
   const { colors } = useContext(ThemeContext)
   return (
     <TouchableWithoutFeedback onPress={() => onPress()}>
       <Button focused={focused}>
-        {unreadCount.length > 0 && (
-          <Notifications>{unreadCount.length}</Notifications>
-        )}
+        {unreadCount > 0 && <Notifications>{unreadCount}</Notifications>}
         <MaterialIcons
           name="notifications"
           size={22}

@@ -6,6 +6,7 @@ import { ThemeContext } from 'styled-components'
 import * as DocumentPicker from 'expo-document-picker'
 import Consants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
+import * as WebBrowser from 'expo-web-browser'
 
 import File from '../../components/File'
 import ModalLoading from '../../components/ModalLoading'
@@ -31,17 +32,24 @@ import FileActions from '../../store/ducks/file'
 
 const FileDelivery = ({
   delivery,
-  updateFileDelivery,
   file_deliveries,
   sendFileDeliveryRequest,
+  updateFileDeliveryRequest,
   loading,
   navigation
 }) => {
   const { colors, metrics } = useContext(ThemeContext)
 
+  const handleFilePress = async url => {
+    if (url) {
+      await WebBrowser.openBrowserAsync(url)
+    }
+  }
+
   async function handleFileDelivery(id) {
     try {
       const result = await pickPostPicture()
+      if (result.type === 'cancel') return
       if (id) {
         showUpdateFileDialog(result, id)
       } else {
@@ -63,7 +71,7 @@ const FileDelivery = ({
         {
           text: 'OK',
           onPress: () => {
-            updateFileDelivery(id, result)
+            updateFileDeliveryRequest(id, result)
           }
         }
       ],
@@ -143,6 +151,8 @@ const FileDelivery = ({
               handleUpdate={handleFileDelivery}
               filename={item.file.key}
               updated_at={item.updatedAt}
+              file_delivery_id={item.id}
+              handleFilePress={() => handleFilePress(item.file.url)}
             />
             <Progress currentStep={item.status} />
           </Content>

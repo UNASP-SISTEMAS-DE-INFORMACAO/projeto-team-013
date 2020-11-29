@@ -12,4 +12,10 @@ notificationsRouter.get(
   NotificationController.index
 )
 
+notificationsRouter.patch(
+  '/',
+  NotificationValidator.update,
+  NotificationController.update
+)
+
 module.exports = notificationsRouter

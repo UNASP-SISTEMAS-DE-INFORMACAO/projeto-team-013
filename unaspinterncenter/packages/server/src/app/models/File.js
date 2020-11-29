@@ -27,6 +27,12 @@ module.exports = function (sequelize, DataTypes) {
             file.url = `${process.env.APP_URL}/files/${file.key}`
           }
           return [file.url]
+        },
+        beforeUpdate: async file => {
+          if (process.env.STORAGE_TYPE == 'local') {
+            file.url = `${process.env.APP_URL}/files/${file.key}`
+          }
+          return [file.url]
         }
       }
     }
