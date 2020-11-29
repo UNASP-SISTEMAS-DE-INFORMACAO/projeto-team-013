@@ -6,7 +6,7 @@ export const apiunasp = axios.create({
 })
 
 const api = axios.create({
-  baseURL: 'http://192.168.15.72:3000'
+  baseURL: 'http://carloshenr1que.ddns.net:3000'
 })
 
 api.interceptors.request.use(async config => {
