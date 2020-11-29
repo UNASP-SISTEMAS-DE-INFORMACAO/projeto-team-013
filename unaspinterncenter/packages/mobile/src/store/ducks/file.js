@@ -6,7 +6,10 @@ const { Types, Creators } = createActions({
   sendFileDeliverySuccess: ['file_delivery'],
   sendFileDeliveryFailure: ['error'],
   setFileDeliveries: ['file_deliveries'],
-  updateFileDelivery: ['id', 'file']
+  updateFileDelivery: ['id', 'file'],
+  updateFileDeliveryRequest: ['file_delivery_id', 'file'],
+  updateFileDeliverySuccess: ['file_delivery'],
+  updateFileDeliveryFailure: ['error']
 })
 
 export const FileTypes = Types
@@ -57,5 +60,32 @@ export const reducer = createReducer(INITIAL_STATE, {
       return file_deliveries.setIn([index, 'file'], file)
     }
     return state.update('file_deliveries', updater, fileIndex, file)
-  }
+  },
+
+  [Types.UPDATE_FILE_DELIVERY_REQUEST]: (state, action) =>
+    state.merge({
+      error: false,
+      loading: true
+    }),
+
+  [Types.UPDATE_FILE_DELIVERY_SUCCESS]: (state, action) => {
+    const { file_deliveries } = state
+    const fileIndex = file_deliveries.findIndex(
+      file_delivery => file_delivery.id == action.file_delivery.id
+    )
+
+    function updater(file_deliveries, index, new_file_delivery) {
+      return file_deliveries.setIn([index], new_file_delivery)
+    }
+
+    return state
+      .update('file_deliveries', updater, fileIndex, action.file_delivery)
+      .merge({ error: false, loading: false })
+  },
+
+  [Types.UPDATE_FILE_DELIVERY_FAILURE]: (state, action) =>
+    state.merge({
+      error: action.error,
+      loading: true
+    })
 })

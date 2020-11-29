@@ -3,7 +3,7 @@ import { call, put } from 'redux-saga/effects'
 import AuthActions from '../ducks/auth'
 
 import { signIn, decode } from '../../services/authService'
-import { saveUser } from '../../utils/user'
+import { saveUser, getToken, getUserRa } from '../../utils/user'
 
 export function* authenticate(action) {
   try {
@@ -33,5 +33,15 @@ export function* authenticate(action) {
       }
     }
     yield put(AuthActions.authFailure(errroMessage))
+  }
+}
+
+export function* isAuth() {
+  const token = yield call(getToken)
+  if (token) {
+    const id = yield call(getUserRa)
+    yield put(AuthActions.authSuccess(id))
+  } else {
+    yield put(AuthActions.authFailure())
   }
 }
