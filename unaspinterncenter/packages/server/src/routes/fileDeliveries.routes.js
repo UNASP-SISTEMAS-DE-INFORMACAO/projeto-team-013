@@ -26,7 +26,10 @@ fileDeliveriesRouter.get(
   FileDeliveryValidator.index,
   FileDeliveryController.index
 )
-
+fileDeliveriesRouter.get(
+  '/all',
+  FileDeliveryController.all
+)
 fileDeliveriesRouter.put(
   '/:file_delivery_id',
   FileDeliveryValidator.update,

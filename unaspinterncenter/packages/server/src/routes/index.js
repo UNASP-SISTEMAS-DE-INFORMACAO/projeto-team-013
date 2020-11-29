@@ -22,6 +22,7 @@ routes.use(
   auth,
   fileDeliveriesRouter
 )
+routes.use('/deliveries',auth,fileDeliveriesRouter)
 routes.use('/users/:id/notifications', auth, notificationsRouter)
 
 module.exports = routes
