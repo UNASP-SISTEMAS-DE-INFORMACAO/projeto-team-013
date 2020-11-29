@@ -20,7 +20,7 @@ const NotificationIconTab = ({
 }) => {
   const socket = useMemo(
     () =>
-      socketio('http://192.168.15.72:3000', {
+      socketio('http://carloshenr1que.ddns.net:3000', {
         query: {
           user_id
         }
