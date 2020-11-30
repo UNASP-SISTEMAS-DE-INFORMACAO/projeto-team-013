@@ -138,6 +138,15 @@ class FileDeliveryController {
       return res.status(500).send(error)
     }
   }
+  async all(req, res) {
+    try {
+      const file_deliveries = await FileDelivery.findAll()
+      return res.status(200).send(file_deliveries)
+    } catch (error) {
+      return res.satus(500).send(error)
+    }
+  }
+
 }
 
 module.exports = new FileDeliveryController()

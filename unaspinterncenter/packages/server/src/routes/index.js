@@ -15,6 +15,7 @@ const routes = Router()
 routes.use('/auth', authRouter)
 routes.use('/users', usersRouter)
 routes.use('/modules', auth, modulesRouter)
+routes.use('/modules/deliveries',auth,deliveriesRouter)
 routes.use('/modules/:id/deliveries', auth, deliveriesRouter)
 routes.use('/modules/:id/attachments', auth, attachmentsRouter)
 routes.use(
@@ -22,6 +23,7 @@ routes.use(
   auth,
   fileDeliveriesRouter
 )
+routes.use('/deliveries',auth,fileDeliveriesRouter)
 routes.use('/users/:id/notifications', auth, notificationsRouter)
 routes.use('/file_deliveries', auth, file_deliveriesRouter)
 
