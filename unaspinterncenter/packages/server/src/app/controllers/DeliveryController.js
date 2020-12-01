@@ -32,15 +32,17 @@ class DeliveryController {
       return res.status(400).end()
     }
   }
-  async listWithModules(req,res){	
-    try{	
-      const deliveriesWithModules = await Module.findAll({include:[{model:Delivery, as: "deliveries"}]}) 	
-      return res.send(deliveriesWithModules);	
-    }	
-    catch(erro){	
-      console.log(erro)	
-      return res.status(400).end()	
-    }	
+
+  async listWithModules(req, res) {
+    try {
+      const deliveriesWithModules = await Module.findAll({
+        include: [{ model: Delivery, as: 'deliveries' }]
+      })
+      return res.send(deliveriesWithModules)
+    } catch (erro) {
+      console.log(erro)
+      return res.status(400).end()
+    }
   }
 }
 
