@@ -40,7 +40,6 @@ class DeliveryController {
       })
       return res.send(deliveriesWithModules)
     } catch (erro) {
-      console.log(erro)
       return res.status(400).end()
     }
   }

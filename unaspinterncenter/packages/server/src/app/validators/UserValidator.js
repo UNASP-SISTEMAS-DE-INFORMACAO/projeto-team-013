@@ -7,8 +7,7 @@ module.exports = {
       id_course: Joi.number().required(),
       email: Joi.string().email().required(),
       name: Joi.string().min(6).max(150).required(),
-      password: Joi.string().min(8).required(),
-      is_admin: Joi.boolean()
+      password: Joi.string().min(8).required()
     })
   }),
 
@@ -24,6 +23,17 @@ module.exports = {
   show: celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       ra: Joi.number().required()
+    })
+  }),
+
+  update: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      ra: Joi.number().required()
+    }),
+    [Segments.BODY]: Joi.object().keys({
+      name: Joi.string().min(6).max(150),
+      password: Joi.string().min(8),
+      expo_token: Joi.string()
     })
   })
 }

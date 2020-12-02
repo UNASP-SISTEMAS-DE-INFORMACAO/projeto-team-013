@@ -1,5 +1,5 @@
-import api  from './api'
-import jwt_decode from "jwt-decode";
+import api from './api'
+import jwt_decode from 'jwt-decode'
 
 export const signIn = async (email, password) => {
   const { data } = await api.post('/auth', {
@@ -10,6 +10,6 @@ export const signIn = async (email, password) => {
   return data
 }
 
-export const decode = (token) => {
+export const decode = token => {
   return jwt_decode(token)
 }

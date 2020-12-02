@@ -1,6 +1,10 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.ScrollView`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    paddingBottom: 90
+  }
+})`
   background: ${props => props.theme.colors.white};
 `
 

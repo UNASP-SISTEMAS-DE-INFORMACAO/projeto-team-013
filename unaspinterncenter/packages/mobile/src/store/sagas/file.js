@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+import { ToastAndroid } from 'react-native'
 import { call, put, select } from 'redux-saga/effects'
 import FileActions from '../ducks/file'
 import { store, update } from '../../services/fileService'
@@ -10,6 +10,7 @@ export function* sendFileDelviery(action) {
   try {
     const file_delivery = yield call(store, file, module_id, delivery_id)
     yield put(FileActions.sendFileDeliverySuccess(file_delivery))
+    ToastAndroid.show('Documento enviado com sucesso !', ToastAndroid.SHORT)
   } catch (error) {
     yield put(FileActions.sendFileDeliveryFailure())
   }
@@ -28,8 +29,8 @@ export function* updateFileDelviery(action) {
       file_delivery_id
     )
     yield put(FileActions.updateFileDeliverySuccess(file_delivery))
+    ToastAndroid.show('Documento atualizado com sucesso !', ToastAndroid.SHORT)
   } catch (error) {
-    console.log(error)
     yield put(FileActions.updateFileDeliveryFailure())
   }
 }

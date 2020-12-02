@@ -93,11 +93,18 @@ class FileDeliveryController {
         { transaction }
       )
 
+      const { user_id } = await FileDelivery.findOne(
+        { where: { id: file_delivery_id } },
+        {
+          include: [{ association: 'user', attributes: ['ra', 'name'] }]
+        }
+      )
+
       const notification = await Notification.create(
         {
           title: delivery.title,
           description: `O status do seu envio foi modificado para ${status}`,
-          notifier_id: req.ra
+          notifier_id: user_id
         },
         { transaction }
       )

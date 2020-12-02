@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
     alignItems: 'center',
-    paddingBottom: 20
+    paddingBottom: 90
   }
 })`
   background: ${props => props.theme.colors.white};
@@ -19,16 +19,12 @@ export const BackgroundHeader = styled.View`
 `
 export const Header = styled.View`
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-direction: row;
-  align-items: center;
   margin-top: ${props => props.theme.metrics.baseMargin}px;
   padding: ${props => props.theme.metrics.basePadding}px;
 `
-export const User = styled.Text`
-  font-size: 16px;
-  color: ${props => props.theme.colors.white};
-`
+
 export const NotificationHeader = styled.Text`
   font-size: 18px;
   color: ${props => props.theme.colors.white};
@@ -56,7 +52,7 @@ export const MessageNotification = styled.View`
 
 export const NotificationTittle = styled.Text`
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
   color: ${props => props.theme.colors.primary};
 `
 export const NotificationText = styled.Text`

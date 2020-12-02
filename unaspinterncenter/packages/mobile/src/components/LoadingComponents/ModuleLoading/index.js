@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
-const ModuleLoading = ({children, loading}) => {
+const ModuleLoading = ({ children, loading }) => {
   const { metrics } = useContext(ThemeContext)
 
   return (

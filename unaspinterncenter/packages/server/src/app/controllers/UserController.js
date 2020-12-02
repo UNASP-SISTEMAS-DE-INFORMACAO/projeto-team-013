@@ -12,7 +12,6 @@ class UserController {
       })
       return res.status(200).send(users)
     } catch (error) {
-      console.log(error)
       return res.status(500).send(error)
     }
   }
@@ -63,12 +62,31 @@ class UserController {
       if (!user) return res.status(404).send()
 
       if (await user.checkPassword(password)) {
-        const { ra, is_admin } = user
+        const { ra, is_admin, expo_token } = user
         const token = User.generateToken({ ra, is_admin })
-        return res.status(200).json({ token, is_admin })
+        return res.status(200).json({ token, is_admin, expo_token })
       } else {
         return res.status(401).end()
       }
+    } catch (error) {
+      return res.status(400).end()
+    }
+  }
+
+  async update(req, res) {
+    const { ra } = req.params
+    if (ra != req.ra) return res.status(401).end()
+    const { name, password, expo_token } = req.body
+
+    try {
+      await User.update(
+        { name, password, expo_token },
+        {
+          where: { ra },
+          individualHooks: true
+        }
+      )
+      return res.status(204).end()
     } catch (error) {
       return res.status(400).end()
     }

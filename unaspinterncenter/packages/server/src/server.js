@@ -5,16 +5,16 @@ const cors = require('cors')
 const path = require('path')
 const http = require('http')
 const io = require('socket.io')
-
+const logging = require('../src/app/middleware/logging')
 class App {
   constructor() {
+    this.connectedUsers = {}
+
     this.app = express()
     this.server = http.createServer(this.app)
     this.socket()
     this.middlewares()
     this.routes()
-
-    this.connectedUsers = {}
   }
 
   socket() {
@@ -30,6 +30,10 @@ class App {
         `The client [${user_id}, ${this.connectedUsers[user_id]}] has been connected`
       )
       socket.on('disconnect', () => {
+        console.log(
+          `The client [${user_id}, ${this.connectedUsers[user_id]}] has been disconnected`
+        )
+
         delete this.connectedUsers[user_id]
       })
     })
@@ -39,6 +43,7 @@ class App {
     this.app.use(cors())
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
+    this.app.use((req, res, next) => logging(req, res, next))
     this.app.use(
       '/files',
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))

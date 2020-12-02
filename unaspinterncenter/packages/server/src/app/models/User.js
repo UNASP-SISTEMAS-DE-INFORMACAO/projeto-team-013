@@ -32,7 +32,8 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.VIRTUAL,
         allowNull: false
       },
-      password_hash: { type: DataTypes.STRING }
+      password_hash: { type: DataTypes.STRING },
+      expo_token: { type: DataTypes.STRING }
     },
     {
       hooks: {

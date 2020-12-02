@@ -13,6 +13,7 @@ import ShowModule from '../pages/ShowModule'
 import Profile from '../pages/Profile'
 import Notification from '../pages/Notification'
 import FileDelivery from '../pages/FileDelivery'
+import Internships from '../pages/Internships'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -105,6 +106,14 @@ export default function DashboardRoutes() {
         }}
         name="FileDelivery"
         component={FileDelivery}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false
+        }}
+        name="Internships"
+        component={Internships}
       />
     </Stack.Navigator>
   )

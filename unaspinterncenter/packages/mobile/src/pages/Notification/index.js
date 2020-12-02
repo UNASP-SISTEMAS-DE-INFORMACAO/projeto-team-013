@@ -5,7 +5,6 @@ import {
   Container,
   BackgroundHeader,
   Header,
-  User,
   NotificationHeader,
   NotificationTittle,
   MessageNotification,
@@ -29,7 +28,7 @@ const Notification = ({ notifications, setNotificationsSeenRequest }) => {
   function setNotificationSeen() {
     const unReadNotifications = []
     notifications.map(notification => {
-      if (notification.seen == false) {
+      if (notification.seen === false) {
         unReadNotifications.push({
           id: notification.id
         })
@@ -44,7 +43,6 @@ const Notification = ({ notifications, setNotificationsSeenRequest }) => {
     <Container>
       <BackgroundHeader />
       <Header>
-        <User>Alexsander Genuino</User>
         <NotificationHeader> Notificações</NotificationHeader>
       </Header>
       <NotificationsContainer>
