@@ -7,6 +7,8 @@ const {
   sequelize
 } = require('../models')
 
+const { getStatusText } = require('../utils')
+
 class FileDeliveryController {
   async all(req, res) {
     try {
@@ -100,10 +102,12 @@ class FileDeliveryController {
         }
       )
 
+      const status_text = getStatusText(status)
+
       const notification = await Notification.create(
         {
           title: delivery.title,
-          description: `O status do seu envio foi modificado para ${status}`,
+          description: `O status do seu envio foi modificado para (${status_text})`,
           notifier_id: user_id
         },
         { transaction }
