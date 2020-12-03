@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 

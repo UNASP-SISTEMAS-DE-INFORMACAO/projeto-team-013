@@ -1,13 +1,51 @@
-/* eslint-disable camelcase */
 const {
   FileDelivery,
   Delivery,
   Module,
   File,
-  Notification
+  Notification,
+  sequelize
 } = require('../models')
 
+const { getStatusText } = require('../utils')
+
 class FileDeliveryController {
+
+  async all(req, res) {
+    try {
+      const file_deliveries = await FileDelivery.findAll({
+        include: [
+          { association: 'file', attributes: ['id', 'url', 'key'] },
+          {
+            association: 'delivery',
+            attributes: ['id', 'title', 'description'],
+            include: [{ association: 'module' }]
+          },
+          { association: 'user', attributes: ['ra', 'name'] }
+        ]
+      })
+      return res.status(200).send(file_deliveries)
+    } catch (error) {
+      return res.satus(500).send(error)
+    }
+  }
+
+  async index(req, res) {
+    const { delivery_id } = req.params
+    const filters = req.query
+    try {
+      const file_deliveries = await FileDelivery.findAll({
+        where: {
+          delivery_id,
+          ...filters
+        }
+      })
+      return res.status(200).send(file_deliveries)
+    } catch (error) {
+      return res.satus(500).send(error)
+    }
+  }
+
   async store(req, res) {
     const { id, delivery_id } = req.params
     const { ra: user_id } = req
@@ -45,26 +83,71 @@ class FileDeliveryController {
     const { status } = req.body
     const is_admin = req.admin
     if (!is_admin) return res.status(401).send()
+    const transaction = await sequelize.transaction()
 
     try {
       if (!(await Module.findByPk(id))) return res.status(404).end()
       const delivery = await Delivery.findByPk(delivery_id)
       if (!delivery) return res.status(404).end()
-      await FileDelivery.update({ status }, { where: { id: file_delivery_id } })
 
-      const notification = await Notification.create({
-        title: delivery.title,
-        description: `O status do seu envio foi modificado para ${status}`,
-        notifier_id: req.ra
-      })
+      await FileDelivery.update(
+        { status },
+        { where: { id: file_delivery_id } },
+        { transaction }
+      )
+
+      const { user_id } = await FileDelivery.findOne(
+        { where: { id: file_delivery_id } },
+        {
+          include: [{ association: 'user', attributes: ['ra', 'name'] }]
+        }
+      )
+
+      const status_text = getStatusText(status)
+
+      const notification = await Notification.create(
+        {
+          title: delivery.title,
+          description: `O status do seu envio foi modificado para (${status_text})`,
+          notifier_id: user_id
+        },
+        { transaction }
+      )
 
       const ownerSocket = req.connectedUsers[req.ra]
 
       if (ownerSocket) {
         req.io.to(ownerSocket).emit('notification', notification)
       }
+      await transaction.commit()
       return res.status(204).end()
     } catch (error) {
+      await transaction.rollback()
+      return res.status(500).send(error)
+    }
+  }
+
+  async update(req, res) {
+    const { id, delivery_id, file_delivery_id } = req.params
+    const { orginalname: name, size, key, location: url = '' } = req.file
+
+    const transaction = await sequelize.transaction()
+
+    try {
+      if (!(await Module.findByPk(id))) return res.status(404).end()
+      const delivery = await Delivery.findByPk(delivery_id)
+      if (!delivery) return res.status(404).end()
+      const file_delivery = await FileDelivery.findByPk(file_delivery_id)
+      const file = await File.findByPk(file_delivery.file_id)
+
+      await file_delivery.update({ status: 'sent' }, { transaction })
+      await file.update({ name, size, key, url }, { transaction })
+
+      await transaction.commit()
+
+      return res.status(200).send({ ...file_delivery.dataValues, file })
+    } catch (error) {
+      await transaction.rollback()
       return res.status(500).send(error)
     }
   }

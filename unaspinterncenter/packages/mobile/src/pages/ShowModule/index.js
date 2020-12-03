@@ -1,6 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable react/jsx-key */
-/* eslint-disable react/prop-types */
 import React, { useContext, useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { ThemeContext } from 'styled-components'
@@ -99,33 +96,33 @@ const ShowModule = ({
         {loading ? (
           <BaseComponentLoading loading={loading} />
         ) : (
-            attachments.map(attachment => (
-              <Attachment
-                key={attachment.id}
-                title={attachment.title}
-                description={attachment.description}
-                handlePress={() => handleAttachmentPress(attachment)}
-              />
-            ))
-          )}
+          attachments.map(attachment => (
+            <Attachment
+              key={attachment.id}
+              title={attachment.title}
+              description={attachment.description}
+              handlePress={() => handleAttachmentPress(attachment)}
+            />
+          ))
+        )}
       </SimpleContainer>
       <SimpleContainer>
         <ModuleTitle>Entregas</ModuleTitle>
         {loading ? (
           <BaseComponentLoading loading={loading} />
         ) : (
-            deliveries.map(delivery => (
-              <Delivery
-                key={delivery.id}
-                title={delivery.title}
-                description={delivery.description}
-                status={delivery.file_deliveries.find(
-                  file_delivery => file_delivery.status === 'approved'
-                )}
-                handlePress={() => handleDeliveryPress(delivery)}
-              />
-            ))
-          )}
+          deliveries.map(delivery => (
+            <Delivery
+              key={delivery.id}
+              title={delivery.title}
+              description={delivery.description}
+              status={delivery.file_deliveries.find(
+                file_delivery => file_delivery.status === 'approved'
+              )}
+              handlePress={() => handleDeliveryPress(delivery)}
+            />
+          ))
+        )}
       </SimpleContainer>
     </Container>
   )

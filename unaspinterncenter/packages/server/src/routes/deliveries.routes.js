@@ -7,5 +7,5 @@ const deliveriesRouter = Router({ mergeParams: true })
 
 deliveriesRouter.post('/', DeliveryValidator.store, DeliveryController.store)
 deliveriesRouter.get('/', DeliveryValidator.index, DeliveryController.index)
-
+deliveriesRouter.get('/includeModules', DeliveryController.listWithModules)
 module.exports = deliveriesRouter

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "696979045917",
+    "firebase_url": "https://unasp-intern-center.firebaseio.com",
+    "project_id": "unasp-intern-center",
+    "storage_bucket": "unasp-intern-center.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696979045917:android:3f4b01b7b722efeeaad0f4",
+        "android_client_info": {
+          "package_name": "com.carloshenr1que.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696979045917-pugg1j3o9r82dln13sts4lssotig0jpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjwFplp5gVOGeWy6WzFb4lpDIHFWaZ5v8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696979045917-pugg1j3o9r82dln13sts4lssotig0jpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

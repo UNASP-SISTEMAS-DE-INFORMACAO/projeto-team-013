@@ -8,12 +8,14 @@ const deliveriesRouter = require('./deliveries.routes')
 const attachmentsRouter = require('./attachments.routes')
 const fileDeliveriesRouter = require('./fileDeliveries.routes')
 const notificationsRouter = require('./notifications.routes')
+const file_deliveriesRouter = require('./file_deliveries.routes')
 
 const routes = Router()
 
 routes.use('/auth', authRouter)
 routes.use('/users', usersRouter)
 routes.use('/modules', auth, modulesRouter)
+routes.use('/modules/deliveries', auth, deliveriesRouter)
 routes.use('/modules/:id/deliveries', auth, deliveriesRouter)
 routes.use('/modules/:id/attachments', auth, attachmentsRouter)
 routes.use(
@@ -21,6 +23,8 @@ routes.use(
   auth,
   fileDeliveriesRouter
 )
+routes.use('/deliveries', auth, fileDeliveriesRouter)
 routes.use('/users/:id/notifications', auth, notificationsRouter)
+routes.use('/file_deliveries', auth, file_deliveriesRouter)
 
 module.exports = routes

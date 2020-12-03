@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
+import { ThemeContext } from 'styled-components'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -12,6 +13,7 @@ import ShowModule from '../pages/ShowModule'
 import Profile from '../pages/Profile'
 import Notification from '../pages/Notification'
 import FileDelivery from '../pages/FileDelivery'
+import Internships from '../pages/Internships'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -28,6 +30,8 @@ function TabRoutes() {
       name: 'add'
     }
   }
+
+  const { metrics } = React.useContext(ThemeContext)
 
   return (
     <Tab.Navigator
@@ -48,12 +52,13 @@ function TabRoutes() {
       tabBarOptions={{
         style: {
           height: 55,
-          width: 328,
+          width: metrics.sceenWidth,
           borderRadius: 10,
-          alignSelf: 'center',
           marginBottom: 20,
           backgroundColor: '#FFF',
-          borderTopColor: '#FFF'
+          borderTopColor: '#FFF',
+          position: 'absolute',
+          margin: 32
         },
         showLabel: false,
         activeTintColor: '#0E395E',
@@ -63,6 +68,7 @@ function TabRoutes() {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Notifications" component={Notification} />
+      <Tab.Screen name="Modules" component={Modules} />
     </Tab.Navigator>
   )
 }
@@ -100,6 +106,14 @@ export default function DashboardRoutes() {
         }}
         name="FileDelivery"
         component={FileDelivery}
+      />
+
+      <Stack.Screen
+        options={{
+          headerShown: false
+        }}
+        name="Internships"
+        component={Internships}
       />
     </Stack.Navigator>
   )

@@ -29,6 +29,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      expo_token: {
+        allowNull: true,
+        type: Sequelize.STRING,
+        defaultValue: null
+      },
       created_at: { allowNull: false, type: Sequelize.DATE },
       updated_at: { allowNull: false, type: Sequelize.DATE }
     })

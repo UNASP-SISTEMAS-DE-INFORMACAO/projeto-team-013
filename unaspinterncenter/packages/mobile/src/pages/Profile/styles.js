@@ -15,7 +15,7 @@ export const BackgroundHeader = styled.View`
 `
 export const Header = styled.View`
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-direction: row;
   align-items: center;
   margin-top: ${props => props.theme.metrics.baseMargin}px;
@@ -23,9 +23,9 @@ export const Header = styled.View`
 `
 export const Title = styled.Text`
   font-size: 18px;
+  font-weight: bold;
   color: ${props => props.theme.colors.white};
 `
-export const BackButton = styled.TouchableOpacity``
 
 export const InputContainer = styled.View`
   justify-content: space-between;
@@ -51,7 +51,7 @@ export const Input = styled.TextInput`
   font-size: 16px;
   color: #fff;
 `
-export const Exit = styled.View`
+export const Exit = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   margin-top: ${props => props.theme.metrics.baseMargin}px;

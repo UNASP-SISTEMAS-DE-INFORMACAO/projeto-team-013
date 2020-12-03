@@ -1,90 +1,75 @@
-import React from 'react'
-
-// import Icon from 'react-native-vector-icons/MaterialIcons'
+import React, { useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import { parseISO, format } from 'date-fns'
 import {
   Container,
   BackgroundHeader,
   Header,
-  User,
   NotificationHeader,
   NotificationTittle,
   MessageNotification,
   NotificationText,
   DateNotification,
-  NotificationList
+  NotificationsContainer
 } from './styles'
 
-Lista = {
-  notificacoes: [
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/12/2020',
-      id: 1
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 2
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    },
-    {
-      Titulo: 'Termo de Compromisso',
-      Texto: 'Seu Termo de Compromisso enviado foi aprovado',
-      Data: '10/11/2020',
-      id: 3
-    }
-  ]
-}
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const Notification = ({ navigation }) => {
+import NotificationsActions from '../../store/ducks/notifications'
+
+const Notification = ({ notifications, setNotificationsSeenRequest }) => {
+  useFocusEffect(
+    useCallback(() => {
+      setNotificationSeen()
+    })
+  )
+
+  function setNotificationSeen() {
+    const unReadNotifications = []
+    notifications.map(notification => {
+      if (notification.seen === false) {
+        unReadNotifications.push({
+          id: notification.id
+        })
+      }
+    })
+    if (unReadNotifications.length > 0) {
+      return setNotificationsSeenRequest(unReadNotifications)
+    }
+  }
+
   return (
     <Container>
       <BackgroundHeader />
       <Header>
-        <User>Alexsander Genuino</User>
         <NotificationHeader> Notificações</NotificationHeader>
       </Header>
-      <NotificationList>
-        {this.Lista.notificacoes.map((item, index) => (
+      <NotificationsContainer>
+        {notifications.map(item => (
           <MessageNotification key={item.id}>
-            <NotificationTittle>{item.Titulo}</NotificationTittle>
-            <NotificationText>{item.Texto}</NotificationText>
-            <DateNotification>{item.Data}</DateNotification>
+            <NotificationTittle>{item.title}</NotificationTittle>
+            <NotificationText>{item.description}</NotificationText>
+            <DateNotification>
+              {format(
+                parseISO(item.createdAt),
+                "'Dia' dd 'de' MMMM', às ' HH:mm'h'"
+              )}
+            </DateNotification>
           </MessageNotification>
         ))}
-      </NotificationList>
+      </NotificationsContainer>
     </Container>
   )
 }
-export default Notification
+
+const mapStateToProps = state => ({
+  loading: state.notifications.loading,
+  error: state.notifications.error,
+  notifications: state.notifications.notifications
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(NotificationsActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notification)

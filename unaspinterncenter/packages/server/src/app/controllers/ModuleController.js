@@ -1,7 +1,7 @@
 const { Module } = require('../models')
 
 class ModuleController {
-  async store (req, res) {
+  async store(req, res) {
     const { name, id_course, description } = req.body
 
     if (!req.admin) return res.status(401).send()
@@ -14,12 +14,11 @@ class ModuleController {
       })
       return res.status(201).send(module)
     } catch (error) {
-      console.log(error)
       return res.status(400).end()
     }
   }
 
-  async index (req, res) {
+  async index(req, res) {
     const filters = {}
 
     if (req.query.course) {
@@ -34,7 +33,7 @@ class ModuleController {
     }
   }
 
-  async exclude (req, res) {
+  async exclude(req, res) {
     const { id } = req.params
     if (!req.admin) return res.status(401).send()
 
@@ -44,12 +43,11 @@ class ModuleController {
       await module.destroy()
       return res.status(204).send()
     } catch (error) {
-      console.log(error)
       return res.status(400).end()
     }
   }
 
-  async update (req, res) {
+  async update(req, res) {
     const { id } = req.params
 
     const module = await Module.findByPk(id)
@@ -66,8 +64,13 @@ class ModuleController {
     }
   }
 
-  async show (req, res) {
+  async show(req, res) {
     const { id } = req.params
+    const is_admin = req.admin
+    const filters = {}
+    if (!is_admin) {
+      filters.user_id = req.ra
+    }
 
     try {
       const module = await Module.findOne({
@@ -85,7 +88,8 @@ class ModuleController {
                 association: 'file_deliveries',
                 include: [
                   { association: 'file', attributes: ['id', 'url', 'key'] }
-                ]
+                ],
+                where: filters
               }
             ]
           }
@@ -97,6 +101,7 @@ class ModuleController {
 
       return res.send(module)
     } catch (error) {
+      console.log(error)
       return res.status(400).end()
     }
   }

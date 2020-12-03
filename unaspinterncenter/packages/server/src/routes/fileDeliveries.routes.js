@@ -24,4 +24,10 @@ fileDeliveriesRouter.patch(
     FileDeliveryController.updateStatus
 )
 
+fileDeliveriesRouter.put(
+  '/:file_delivery_id',
+  FileDeliveryValidator.update,
+  upload.single('file'),
+  FileDeliveryController.update
+)
 module.exports = fileDeliveriesRouter

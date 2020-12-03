@@ -1,28 +1,31 @@
 import React from 'react'
-import { ProgressSteps, ProgressStep } from 'react-native-progress-steps'
+import { Container, Step, StepContainer, Line, Text } from './styles'
 
-import { Container, Step, Text } from './styles'
+const steps = [
+  {
+    text: 'Enviado',
+    type: 'sent'
+  },
+  {
+    text: 'Em analise',
+    type: 'analyzing'
+  },
+  {
+    text: 'aprovado',
+    type: 'approved'
+  }
+]
 
-const ProgressWithStep = () => {
+const ProgressWithStep = ({ currentStep }) => {
   return (
     <Container>
-      <ProgressSteps>
-        <ProgressStep label="First Step">
-          <Step>
-            <Text>This is the content within step 1!</Text>
-          </Step>
-        </ProgressStep>
-        <ProgressStep label="Second Step">
-          <Step>
-            <Text>This is the content within step 2!</Text>
-          </Step>
-        </ProgressStep>
-        <ProgressStep label="Third Step">
-          <Step>
-            <Text>This is the content within step 3!</Text>
-          </Step>
-        </ProgressStep>
-      </ProgressSteps>
+      <Line />
+      {steps.map(step => (
+        <StepContainer key={step.type}>
+          <Step status={step.type === currentStep} />
+          <Text>{step.text}</Text>
+        </StepContainer>
+      ))}
     </Container>
   )
 }
