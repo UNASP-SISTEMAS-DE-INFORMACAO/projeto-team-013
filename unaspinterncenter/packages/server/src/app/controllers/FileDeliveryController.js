@@ -10,6 +10,7 @@ const {
 const { getStatusText } = require('../utils')
 
 class FileDeliveryController {
+
   async all(req, res) {
     try {
       const file_deliveries = await FileDelivery.findAll({
