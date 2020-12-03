@@ -23,7 +23,16 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.carloshenr1que.mobile"
+      "package": "com.carloshenr1que.mobile",
+      "versionCode": 1,
+      "useNextNotificationsApi": true,
+      "googleServicesFile": "./google-services.json"
+    },
+    "notification": {
+      "icon": "./assets/ic_stat_logo.png",
+      "color": "#0E395E",
+      "androidMode": "default",
+      "androidCollapsedTitle": "n/a"
     }
   }
 }

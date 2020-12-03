@@ -66,6 +66,11 @@ class ModuleController {
 
   async show(req, res) {
     const { id } = req.params
+    const is_admin = req.admin
+    const filters = {}
+    if (!is_admin) {
+      filters.user_id = req.ra
+    }
 
     try {
       const module = await Module.findOne({
@@ -83,7 +88,8 @@ class ModuleController {
                 association: 'file_deliveries',
                 include: [
                   { association: 'file', attributes: ['id', 'url', 'key'] }
-                ]
+                ],
+                where: filters
               }
             ]
           }
@@ -95,6 +101,7 @@ class ModuleController {
 
       return res.send(module)
     } catch (error) {
+      console.log(error)
       return res.status(400).end()
     }
   }
