@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { call, put } from 'redux-saga/effects'
 import UserActions from '../ducks/user'
 

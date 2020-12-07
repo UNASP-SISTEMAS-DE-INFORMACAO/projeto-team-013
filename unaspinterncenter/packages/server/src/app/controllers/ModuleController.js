@@ -73,7 +73,7 @@ class ModuleController {
     }
 
     try {
-      const module = await Module.findOne({
+      var module = await Module.findOne({
         include: [
           {
             association: 'attachments',
@@ -86,10 +86,15 @@ class ModuleController {
             include: [
               {
                 association: 'file_deliveries',
+                required: false,
                 include: [
-                  { association: 'file', attributes: ['id', 'url', 'key'] }
+                  {
+                    association: 'file',
+                    attributes: ['id', 'url', 'key'],
+                    required: false
+                  }
                 ],
-                where: filters
+                where: { user_id: req.ra }
               }
             ]
           }

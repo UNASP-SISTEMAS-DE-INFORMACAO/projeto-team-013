@@ -1,16 +1,14 @@
 import React, { useCallback } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
-import { parseISO, format } from 'date-fns'
+
+import NoData from '../../components/NoData'
+import NotificationComponent from '../../components/NotificationComponent'
+
 import {
   Container,
   BackgroundHeader,
   Header,
-  NotificationHeader,
-  NotificationTittle,
-  MessageNotification,
-  NotificationText,
-  DateNotification,
-  NotificationsContainer
+  NotificationHeader
 } from './styles'
 
 import { connect } from 'react-redux'
@@ -43,22 +41,19 @@ const Notification = ({ notifications, setNotificationsSeenRequest }) => {
     <Container>
       <BackgroundHeader />
       <Header>
-        <NotificationHeader> Notificações</NotificationHeader>
+        <NotificationHeader>Notificações</NotificationHeader>
       </Header>
-      <NotificationsContainer>
-        {notifications.map(item => (
-          <MessageNotification key={item.id}>
-            <NotificationTittle>{item.title}</NotificationTittle>
-            <NotificationText>{item.description}</NotificationText>
-            <DateNotification>
-              {format(
-                parseISO(item.createdAt),
-                "'Dia' dd 'de' MMMM', às ' HH:mm'h'"
-              )}
-            </DateNotification>
-          </MessageNotification>
-        ))}
-      </NotificationsContainer>
+      {notifications.length > 0 ? (
+        notifications.map(item => (
+          <NotificationComponent
+            key={item.id}
+            title={item.title}
+            description={item.description}
+          />
+        ))
+      ) : (
+        <NoData text="Você não possui notificações" />
+      )}
     </Container>
   )
 }

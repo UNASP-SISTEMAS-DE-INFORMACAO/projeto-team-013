@@ -38,6 +38,7 @@
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
     "react-native-shimmer-placeholder": "^2.0.6",
+    "react-native-svg": "^12.1.0",
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.1",
     "reactotron-react-native": "^5.0.0",

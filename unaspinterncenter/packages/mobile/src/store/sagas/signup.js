@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+import { ToastAndroid } from 'react-native'
 import { call, put } from 'redux-saga/effects'
 import SignUpActions from '../ducks/signup'
 
@@ -32,7 +32,7 @@ export function* createStudent(action) {
   try {
     yield call(create, student)
     yield put(SignUpActions.signUpSuccess())
-    alert('Usuario criado')
+    ToastAndroid.show('Usuário criado com sucesso !', ToastAndroid.SHORT)
     navigate('Login')
   } catch (error) {
     let errroMessage = 'Servidor inacessivel no momento'
